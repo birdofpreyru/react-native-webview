@@ -739,10 +739,30 @@ RCTAutoInsetsProtocol>
       _onMessage(event);
     }
   } else if ([message.name isEqualToString:PrintingHandlerName]) {
+    CGSize origSize = _webView.frame.size;
+    CGPoint origOffset = _webView.scrollView.contentOffset;
+    
     if (@available(iOS 14.0, *)) {
       _webView.mediaType = @"print";
     }
-    [_webView takeSnapshotWithConfiguration:NULL completionHandler:^(UIImage * _Nullable snapshotImage, NSError * _Nullable error) {
+
+    CGSize contentSize = _webView.scrollView.contentSize;
+    
+    // _webView.pageZoom = 3;
+    
+    // _webView.bounds = CGRectMake(0, 0, contentSize.width, contentSize.height);
+    // [_webView.scrollView setContentOffset:CGPointZero animated:NO];
+    
+    NSArray<NSString*>* size = [(NSString*)message.body componentsSeparatedByString:@"/"];
+    
+    // Without explicitly set config, the snapshot will include the visible
+    // WebView viewport only; however we want to print entire page, thus we
+    // measure it within the WebView, and use its size here.
+    WKSnapshotConfiguration *config = [[WKSnapshotConfiguration alloc] init];
+    config.rect = CGRectMake(0, 0, [size[0] doubleValue], [size[1] doubleValue]);
+    config.snapshotWidth = @2024;
+
+    [_webView takeSnapshotWithConfiguration:config completionHandler:^(UIImage * _Nullable snapshotImage, NSError * _Nullable error) {
       if (@available(iOS 14.0, *)) {
         self->_webView.mediaType = nil;
       }
@@ -1767,7 +1787,9 @@ didFinishNavigation:(WKNavigation *)navigation
   NSString *windowPrintSource = [NSString stringWithFormat:
                                    @"(function() {"
                                     "   window.print = function () {"
-                                    "     window.webkit.messageHandlers.%@.postMessage('');"
+                                    "     var size = document.body.offsetWidth.toString()"
+                                    "       + '/' + document.body.offsetHeight.toString();"
+                                    "     window.webkit.messageHandlers.%@.postMessage(size);"
                                     "   };"
                                     "})();", PrintingHandlerName];
   WKUserScript *windowPrintScript = [[WKUserScript alloc]

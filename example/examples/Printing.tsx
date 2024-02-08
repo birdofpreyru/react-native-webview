@@ -14,6 +14,11 @@ const HTML = `
           display: none;
         }
       }
+      .tall-div {
+        border: 1px solid red;
+        width: 100px;
+        height: 1000px;
+      }
     </style>
   </head>
   <body>
@@ -25,6 +30,10 @@ const HTML = `
     <button onclick="window.print()">
       Print me!
     </button>
+    <div class="tall-div">
+      If we correctly print entire page, rather than just the visible viewport,
+      this entire rectangle should be visible on the printed page.
+    </div>
   </body>
 </html>
 `;
