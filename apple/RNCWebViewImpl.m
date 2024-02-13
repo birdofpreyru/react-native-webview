@@ -123,6 +123,7 @@ RCTAutoInsetsProtocol>
 
 @property (nonatomic, copy) RNCWKWebView *webView;
 @property (nonatomic, strong) WKUserScript *postMessageScript;
+@property (nonatomic, strong) WKUserScript *injectedObjectJsonScript;
 @property (nonatomic, strong) WKUserScript *atStartScript;
 @property (nonatomic, strong) WKUserScript *atEndScript;
 @end
@@ -574,6 +575,11 @@ RCTAutoInsetsProtocol>
     [_webView.configuration.userContentController removeScriptMessageHandlerForName:PrintingHandlerName];
     [_webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [_webView removeFromSuperview];
+    if (@available(iOS 15.0, macOS 12.0, *)) {
+        [_webView pauseAllMediaPlaybackWithCompletionHandler:nil];
+    } else if (@available(iOS 14.5, macOS 11.3, *)) {
+        [_webView suspendAllMediaPlayback:nil];
+    }
 #if !TARGET_OS_OSX
     _webView.scrollView.delegate = nil;
     if (_menuItems) {
@@ -1631,6 +1637,26 @@ didFinishNavigation:(WKNavigation *)navigation
   }
 }
 
+- (void)setInjectedJavaScriptObject:(NSString *)source
+{
+  self.injectedObjectJsonScript = [
+    [WKUserScript alloc]
+    initWithSource: [
+      NSString
+      stringWithFormat:
+       @"window.%@ ??= {};"
+      "window.%@.injectedObjectJson = function () {"
+      "  return `%@`;"
+      "};", MessageHandlerName, MessageHandlerName, source
+    ]
+    injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+    /* TODO: For a separate (minor) PR: use logic like this (as react-native-wkwebview does) so that messaging can be used in all frames if desired.
+     *       I am keeping it as YES for consistency with previous behaviour. */
+    // forMainFrameOnly:_messagingEnabledForMainFrameOnly
+    forMainFrameOnly:YES
+  ];
+}
+
 - (void)setEnableApplePay:(BOOL)enableApplePay {
     _enableApplePay = enableApplePay;
     if(_webView != nil){
@@ -1669,11 +1695,10 @@ didFinishNavigation:(WKNavigation *)navigation
     initWithSource: [
       NSString
       stringWithFormat:
-        @"window.%@ = {"
-      "  postMessage: function (data) {"
-      "    window.webkit.messageHandlers.%@.postMessage(String(data));"
-      "  }"
-      "};", MessageHandlerName, MessageHandlerName
+       @"window.%@ ??= {};"
+      "window.%@.postMessage = function (data) {"
+      "  window.webkit.messageHandlers.%@.postMessage(String(data));"
+      "};", MessageHandlerName, MessageHandlerName, MessageHandlerName
     ]
     injectionTime:WKUserScriptInjectionTimeAtDocumentStart
     /* TODO: For a separate (minor) PR: use logic like this (as react-native-wkwebview does) so that messaging can be used in all frames if desired.
@@ -1843,6 +1868,9 @@ didFinishNavigation:(WKNavigation *)navigation
   // Whether or not messaging is enabled, add the startup script if it exists.
   if (self.atStartScript) {
     [wkWebViewConfig.userContentController addUserScript:self.atStartScript];
+  }
+  if (self.injectedObjectJsonScript) {
+    [wkWebViewConfig.userContentController addUserScript:self.injectedObjectJsonScript];
   }
 }
 
