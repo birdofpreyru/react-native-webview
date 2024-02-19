@@ -1,66 +1,48 @@
 defaults: &defaults
-  working_directory: ~/code
   docker:
-    - image: cimg/node:18.13.0-browsers
+    - image: cimg/node:lts-browsers
 
-version: 2
+version: 2.1
 jobs:
-  setup:
+  test:
     <<: *defaults
     steps:
       - checkout
       - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Install dependencies
-          command: yarn --pure-lockfile
-
+          key: node-modules-{{ checksum "yarn.lock" }}
+      - run: yarn --pure-lockfile
       - save_cache:
-          name: Save node modules
-          key: node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
+          key: node-modules-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - run: yarn ci
+      - persist_to_workspace:
+          root: .
           paths:
             - node_modules
 
-  tests:
+  release:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Lint checks
-          command: yarn ci
-
-  publish:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache:
-          name: Restore node modules
-          keys:
-            - node_modules-{{ arch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Publish to NPM
-          command: yarn ci:publish
+      - attach_workspace:
+          at: .
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run: npm publish --access public
 
 workflows:
   version: 2
-  ci:
+  build:
     jobs:
-      - setup
-      - tests:
-          requires:
-            - setup
-      - publish:
-          requires:
-            - tests
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - release:
           filters:
             branches:
-              only: master
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-(alpha|beta)\.[0-9]+)?/
+          requires:
+            - test

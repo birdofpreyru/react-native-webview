@@ -1,9 +1,32 @@
 # React Native WebView
 
-![star this repo](https://img.shields.io/github/stars/react-native-webview/react-native-webview?style=flat-square)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![NPM Version](https://img.shields.io/npm/v/react-native-webview.svg?style=flat-square)](https://www.npmjs.com/package/react-native-webview)
-![Npm Downloads](https://img.shields.io/npm/dm/react-native-webview.svg)
+<!-- Status badges section (also double as links to related repos / CICD / etc.). -->
+[![Latest NPM Release](https://img.shields.io/npm/v/@dr.pogodin/react-native-webview.svg)](https://www.npmjs.com/package/@dr.pogodin/react-native-webview)
+[![NPM Downloads](https://img.shields.io/npm/dm/@dr.pogodin/react-native-webview.svg)](https://www.npmjs.com/package/@dr.pogodin/react-native-webview)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/birdofpreyru/react-native-webview/tree/master.svg?style=shield)](https://app.circleci.com/pipelines/github/birdofpreyru/react-native-webview)
+[![GitHub Repo stars](https://img.shields.io/github/stars/birdofpreyru/react-native-webview?style=social)](https://github.com/birdofpreyru/react-native-webview)
+[![Dr. Pogodin Studio](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/logo-dr-pogodin-studio.svg)](https://dr.pogodin.studio/docs/react-native-webview)
+<!-- End of status badges section. -->
+
+**NOTE:** _This is a customized fork of the upstream
+[react-native-webview](https://www.npmjs.com/package/react-native-webview)
+library. It follows latest upstream releases, and applies on top of them selected
+fixes and PRs faster that take ages to be merged in into the upstream._
+
+**Current Differences from the Upstream:**
+- [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
+  / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
+  &mdash; **Android:** Trigger `onError` callback on asset loading errors.
+- [Upstream issue #3305](https://github.com/react-native-webview/react-native-webview/issues/3305)
+  / [Upstream PR #3307](https://github.com/react-native-webview/react-native-webview/pull/3307)
+  &mdash; **Android:** Fixes `injectJavaScript` and other commands being executed
+  twice on each call with the RN's new architecture enabled.
+- [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
+  / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS** Support of `window.print()` function.
+
+[![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
+
+---
 
 **React Native WebView** is a community-maintained WebView component for React Native. It is intended to be a replacement for the built-in WebView (which was [removed from core](https://github.com/react-native-community/discussions-and-proposals/pull/3)).
 
