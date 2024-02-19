@@ -13,6 +13,14 @@
 library. It follows latest upstream releases, and applies on top of them selected
 fixes and PRs faster that take ages to be merged in into the upstream._
 
+To use this for remove the original `react-native-webview` dependency from
+your `package.json`, then install the forked package as
+```shell
+npm install --save @dr.pogodin/react-native-webview
+```
+then replace `react-native-webview` imports in your TypeScript code by
+`@dr.pogodin/react-native-webview` imports.
+
 **Current Differences from the Upstream:**
 - [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
   / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
