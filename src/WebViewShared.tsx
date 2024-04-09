@@ -171,12 +171,12 @@ export const useWebViewLogic = ({
       // This block is only entered if the error is for the main source itself,
       // not for related assets.
       if (startUrl.current === event.nativeEvent.url) {
-      onLoadEnd?.(event);
-      if (event.isDefaultPrevented()) {
-        return;
-      }
-      setViewState('ERROR');
-      setLastErrorEvent(event.nativeEvent);
+        onLoadEnd?.(event);
+        if (event.isDefaultPrevented()) {
+          return;
+        }
+        setViewState('ERROR');
+        setLastErrorEvent(event.nativeEvent);
       }
     },
     [onError, onLoadEnd]
