@@ -18,6 +18,7 @@ import Uploads from './examples/Uploads';
 import Injection from './examples/Injection';
 import LocalPageLoad from './examples/LocalPageLoad';
 import Messaging from './examples/Messaging';
+import MultiMessaging from './examples/MultiMessaging';
 import NativeWebpage from './examples/NativeWebpage';
 import ApplePay from './examples/ApplePay';
 import CustomMenu from './examples/CustomMenu';
@@ -41,6 +42,14 @@ const TESTS = {
     description: 'window.print() support test',
     render() {
       return <Printing />;
+    },
+  },
+  MultiMessaging: {
+    title: 'MultiMessaging',
+    testId: 'multimessaging',
+    description: 'Multi js-webview postMessage messaging test',
+    render() {
+      return <MultiMessaging />;
     },
   },
   Alerts: {
@@ -237,6 +246,11 @@ export default class App extends Component<Props, State> {
             testID="testType_messaging"
             title="Messaging"
             onPress={() => this._changeTest('Messaging')}
+          />
+          <Button
+            testID="testType_multimessaging"
+            title="MultiMessaging"
+            onPress={() => this._changeTest('MultiMessaging')}
           />
           <Button
             testID="testType_nativeWebpage"
