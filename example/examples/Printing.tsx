@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 
-import WebView from 'react-native-webview';
+import WebView from '@dr.pogodin/react-native-webview';
 
 const HTML = `
 <!DOCTYPE html>
