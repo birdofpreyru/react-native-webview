@@ -1,4 +1,6 @@
-import {View} from 'react-native';
+import React from 'react';
+
+import { View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
 
@@ -40,7 +42,7 @@ const HTML = `
 
 const Printing: React.FunctionComponent = () => (
   <View style={{ height: 300 }}>
-    <WebView source={{html: HTML}} webviewDebuggingEnabled />
+    <WebView source={{ html: HTML }} webviewDebuggingEnabled />
   </View>
 );
 

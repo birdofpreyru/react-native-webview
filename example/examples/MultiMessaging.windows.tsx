@@ -43,8 +43,8 @@ const HTML = `<!DOCTYPE html>\n
 </html>`;
 
 export default function MultiMessaging() {
-  const webView = React.useRef<WebView | null>(null);
-  const webView2 = React.useRef<WebView | null>(null);
+  const webView = React.useRef<typeof WebView>(null);
+  const webView2 = React.useRef<typeof WebView>(null);
 
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -57,14 +57,15 @@ export default function MultiMessaging() {
             margin: 8,
           }}
           onSubmitEditing={(e) => {
-            webView.current?.postMessage(e.nativeEvent.text);
+            (webView.current as any).postMessage(e.nativeEvent.text);
           }}
         />
         <WebView
+          // @ts-ignore Because typing in the library is messy.
           ref={webView}
           source={{ html: HTML }}
           onLoadEnd={() => {
-            webView.current?.postMessage('Hello from RN');
+            (webView.current as any).postMessage('Hello from RN');
           }}
           automaticallyAdjustContentInsets={false}
           onMessage={(e: { nativeEvent: { data?: string } }) => {
@@ -83,16 +84,17 @@ export default function MultiMessaging() {
             margin: 8,
           }}
           onSubmitEditing={(e) => {
-            webView2.current?.postMessage(e.nativeEvent.text);
+            (webView2.current as any).postMessage(e.nativeEvent.text);
           }}
         />
         <WebView
+          // @ts-ignore Because typing in the library is messy.
           ref={webView2}
           source={{
             html: HTML.replace(/from JS/g, 'from JS2'),
           }}
           onLoadEnd={() => {
-            webView2.current?.postMessage('Hello from RN2');
+            (webView2.current as any).postMessage('Hello from RN2');
           }}
           automaticallyAdjustContentInsets={false}
           onMessage={(e: { nativeEvent: { data?: string } }) => {

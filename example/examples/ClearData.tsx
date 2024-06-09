@@ -9,18 +9,20 @@ type State = {};
 export default class ClearData extends Component<Props, State> {
   state = {};
 
-  constructor(props) {
+  webView: React.RefObject<typeof WebView>;
+
+  constructor(props: Props) {
     super(props);
     this.webView = React.createRef();
   }
 
   clearCacheAndReload = (includeDiskFiles: boolean) => {
-    this.webView.current.clearCache(includeDiskFiles);
-    this.webView.current.reload();
+    (this.webView.current as any).clearCache(includeDiskFiles);
+    (this.webView.current as any).reload();
   };
 
   reload = () => {
-    this.webView.current.reload();
+    (this.webView.current as any).reload();
   };
 
   render() {
@@ -36,6 +38,7 @@ export default class ClearData extends Component<Props, State> {
         />
         <Button title="Reload" onPress={this.reload} />
         <WebView
+          // @ts-ignore
           ref={this.webView}
           source={{ uri: 'https://www.theguardian.com/international' }}
           incognito={false}

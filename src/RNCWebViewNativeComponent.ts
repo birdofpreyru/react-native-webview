@@ -1,11 +1,13 @@
 import type { HostComponent, ViewProps } from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import {
+
+import type {
   DirectEventHandler,
   Double,
   Int32,
   WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
+
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 
 export type WebViewNativeEvent = Readonly<{

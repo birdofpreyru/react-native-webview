@@ -1,5 +1,5 @@
-import { ReactElement, Component, ComponentProps } from 'react';
-import {
+import { type ReactElement, Component, type ComponentProps } from 'react';
+import type {
   NativeSyntheticEvent,
   ViewProps,
   StyleProp,

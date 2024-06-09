@@ -1,7 +1,7 @@
 import escapeStringRegexp from 'escape-string-regexp';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { Linking, View, ActivityIndicator, Text, Platform } from 'react-native';
-import {
+import type {
   OnShouldStartLoadWithRequest,
   ShouldStartLoadRequestEvent,
   WebViewError,

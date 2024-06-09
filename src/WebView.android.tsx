@@ -1,20 +1,29 @@
 import React, {
+  type ReactElement,
   forwardRef,
-  ReactElement,
   useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
 } from 'react';
 
-import { Image, View, ImageSourcePropType, HostComponent } from 'react-native';
+import {
+  type HostComponent,
+  type ImageSourcePropType,
+  Image,
+  View,
+} from 'react-native';
 
 import BatchedBridge from 'react-native/Libraries/BatchedBridge/BatchedBridge';
 import EventEmitter from 'react-native/Libraries/vendor/emitter/EventEmitter';
 
 import invariant from 'invariant';
 
-import RNCWebView, { Commands, NativeProps } from './RNCWebViewNativeComponent';
+import RNCWebView, {
+  Commands,
+  type NativeProps,
+} from './RNCWebViewNativeComponent';
+
 import RNCWebViewModule from './NativeRNCWebView';
 import {
   defaultOriginWhitelist,
@@ -22,11 +31,12 @@ import {
   defaultRenderLoading,
   useWebViewLogic,
 } from './WebViewShared';
-import {
+
+import type {
   AndroidWebViewProps,
   WebViewSourceUri,
-  type WebViewMessageEvent,
-  type ShouldStartLoadRequestEvent,
+  WebViewMessageEvent,
+  ShouldStartLoadRequestEvent,
 } from './WebViewTypes';
 
 import styles from './WebView.styles';

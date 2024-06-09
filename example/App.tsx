@@ -27,6 +27,13 @@ import Printing from './examples/Printing';
 import SuppressMenuItems from './examples/Suppress';
 import ClearData from './examples/ClearData';
 
+type TestT = {
+  title: string;
+  testId: string;
+  description: string;
+  render: () => React.ReactElement;
+};
+
 const TESTS = {
   Messaging: {
     title: 'Messaging',
@@ -156,12 +163,12 @@ const TESTS = {
       return <SuppressMenuItems />;
     },
   },
-};
+} satisfies Record<string, TestT>;
 
 interface Props {}
 interface State {
   restarting: boolean;
-  currentTest: Object;
+  currentTest: TestT;
 }
 
 export default class App extends Component<Props, State> {
@@ -172,11 +179,11 @@ export default class App extends Component<Props, State> {
 
   _simulateRestart = () => {
     this.setState({ restarting: true }, () =>
-      this.setState({ restarting: false }),
+      this.setState({ restarting: false })
     );
   };
 
-  _changeTest = (testName) => {
+  _changeTest = (testName: keyof typeof TESTS) => {
     this.setState({ currentTest: TESTS[testName] });
   };
 
