@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "version": "13.10.3",
-  "homepage": "https://github.com/react-native-webview/react-native-webview#readme",
+  "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "scripts": {
     "android": "react-native run-android",
     "example": "yarn workspace react-native-webview-example",
@@ -43,9 +43,9 @@
     "invariant": "2.2.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20.0",
-    "@babel/core": "^7.20.0",
-    "@babel/runtime": "^7.20.0",
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/runtime": "^7.24.7",
     "@callstack/react-native-visionos": "0.73.8",
     "@react-native/babel-preset": "0.73.21",
     "@react-native/eslint-config": "0.74.83",
@@ -55,7 +55,7 @@
     "@semantic-release/git": "7.0.16",
     "@types/invariant": "^2.2.30",
     "@types/jest": "^29.5.12",
-    "@types/react": "18.3.1",
+    "@types/react": "18.3.3",
     "@types/selenium-webdriver": "4.0.9",
     "appium": "1.17.0",
     "eslint": "8.57.0",
@@ -75,7 +75,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-native-webview/react-native-webview.git"
+    "url": "https://github.com/birdofpreyru/react-native-webview.git"
   },
   "files": [
     "android/src",
