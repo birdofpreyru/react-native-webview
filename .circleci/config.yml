@@ -10,7 +10,7 @@ jobs:
       - checkout
       - restore_cache:
           key: node-modules-{{ checksum "yarn.lock" }}
-      - run: yarn --pure-lockfile
+      - run: yarn
       - save_cache:
           key: node-modules-{{ checksum "yarn.lock" }}
           paths:
