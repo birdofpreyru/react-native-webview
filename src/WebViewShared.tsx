@@ -1,7 +1,6 @@
 import escapeStringRegexp from 'escape-string-regexp';
 
-// @ts-ignore
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { Linking, View, ActivityIndicator, Text, Platform } from 'react-native';
 import type {
