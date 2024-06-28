@@ -10,7 +10,13 @@
  * Licensed under the MIT License.
  */
 
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+// @ts-ignore
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 
 import {
   type ImageSourcePropType,

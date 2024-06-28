@@ -1,5 +1,8 @@
 import escapeStringRegexp from 'escape-string-regexp';
-import { useCallback, useMemo, useRef, useState } from 'react';
+
+// @ts-ignore
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+
 import { Linking, View, ActivityIndicator, Text, Platform } from 'react-native';
 import type {
   OnShouldStartLoadWithRequest,
