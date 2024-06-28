@@ -10,7 +10,7 @@
  * Licensed under the MIT License.
  */
 
-import React, {
+import {
   forwardRef,
   useCallback,
   useImperativeHandle,
