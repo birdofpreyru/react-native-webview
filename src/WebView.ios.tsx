@@ -19,7 +19,7 @@ import RNCWebView, {
   Commands,
 } from './RNCWebViewNativeComponent';
 
-import RNCWebViewModule from './NativeRNCWebView';
+import RNCWebViewModule from './NativeRNCWebViewModule';
 
 import {
   defaultOriginWhitelist,
