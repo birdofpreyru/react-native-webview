@@ -1,4 +1,4 @@
-import React, { Component, type SyntheticEvent } from 'react';
+import { Component, type SyntheticEvent } from 'react';
 import { Button, Switch, StyleSheet, Text, View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';

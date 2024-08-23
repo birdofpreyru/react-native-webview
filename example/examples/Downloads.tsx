@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Alert, Platform, View } from 'react-native';
 
 import WebView, { type FileDownload } from '@dr.pogodin/react-native-webview';

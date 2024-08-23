@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, createRef } from 'react';
 import { View, Button } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -13,7 +13,7 @@ export default class ClearData extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.webView = React.createRef();
+    this.webView = createRef();
   }
 
   clearCacheAndReload = (includeDiskFiles: boolean) => {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import {Button, Linking, Text, View} from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
