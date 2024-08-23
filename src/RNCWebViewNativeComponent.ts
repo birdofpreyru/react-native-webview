@@ -184,6 +184,7 @@ export interface NativeProps extends ViewProps {
   allowingReadAccessToURL?: string;
   allowsBackForwardNavigationGestures?: boolean;
   allowsInlineMediaPlayback?: boolean;
+  allowsPictureInPictureMediaPlayback?: boolean;
   allowsAirPlayForMediaPlayback?: boolean;
   allowsLinkPreview?: boolean;
   automaticallyAdjustContentInsets?: boolean;
@@ -233,6 +234,7 @@ export interface NativeProps extends ViewProps {
   >;
   pagingEnabled?: boolean;
   pullToRefreshEnabled?: boolean;
+  refreshControlLightMode?: boolean;
   scrollEnabled?: boolean;
   sharedCookiesEnabled?: boolean;
   textInteractionEnabled?: boolean;

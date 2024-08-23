@@ -494,6 +494,7 @@ RCTAutoInsetsProtocol>
 
 #if !TARGET_OS_OSX
   wkWebViewConfig.allowsInlineMediaPlayback = _allowsInlineMediaPlayback;
+  wkWebViewConfig.allowsPictureInPictureMediaPlayback = _allowsPictureInPictureMediaPlayback;
   wkWebViewConfig.mediaTypesRequiringUserActionForPlayback = _mediaPlaybackRequiresUserAction
   ? WKAudiovisualMediaTypeAll
   : WKAudiovisualMediaTypeNone;
@@ -846,6 +847,9 @@ RCTAutoInsetsProtocol>
   NSString *allowingReadAccessToURL = _allowingReadAccessToURL;
 
   [self syncCookiesToWebView:^{
+    // Add observer to sync cookies from webview to sharedHTTPCookieStorage
+    [webView.configuration.websiteDataStore.httpCookieStore addObserver:self];
+    
     // Because of the way React works, as pages redirect, we actually end up
     // passing the redirect urls back here, so we ignore them if trying to load
     // the same url. We'll expose a call to 'reload' to allow a user to load
@@ -1597,6 +1601,9 @@ didFinishNavigation:(WKNavigation *)navigation
 {
   UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
   _refreshControl = refreshControl;
+  if(_refreshControlLightMode) {
+    [refreshControl setTintColor:[UIColor whiteColor]];
+  }
   [_webView.scrollView addSubview: refreshControl];
   [refreshControl addTarget:self action:@selector(pullToRefresh:) forControlEvents: UIControlEventValueChanged];
 }
@@ -1852,9 +1859,7 @@ didFinishNavigation:(WKNavigation *)navigation
       if(!_incognito && !_cacheEnabled) {
         wkWebViewConfig.websiteDataStore = [WKWebsiteDataStore nonPersistentDataStore];
       }
-      [self syncCookiesToWebView:^{
-        [wkWebViewConfig.websiteDataStore.httpCookieStore addObserver:self];
-      }];
+      [self syncCookiesToWebView:^{}];
     } else {
       NSMutableString *script = [NSMutableString string];
 
