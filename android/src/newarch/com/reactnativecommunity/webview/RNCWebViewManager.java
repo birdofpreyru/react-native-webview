@@ -342,9 +342,7 @@ public class RNCWebViewManager extends ViewGroupManager<RNCWebViewWrapper>
     public void setAllowsInlineMediaPlayback(RNCWebViewWrapper view, boolean value) {}
 
     @Override
-    public void setAllowsPictureInPictureMediaPlayback(RNCWebViewWrapper view, boolean value) {
-
-    }
+    public void setAllowsPictureInPictureMediaPlayback(RNCWebViewWrapper view, boolean value) {}
 
     @Override
     public void setAllowsAirPlayForMediaPlayback(RNCWebViewWrapper view, boolean value) {}
@@ -395,9 +393,7 @@ public class RNCWebViewManager extends ViewGroupManager<RNCWebViewWrapper>
     public void setPullToRefreshEnabled(RNCWebViewWrapper view, boolean value) {}
 
     @Override
-    public void setRefreshControlLightMode(RNCWebViewWrapper view, boolean value) {
-
-    }
+    public void setRefreshControlLightMode(RNCWebViewWrapper view, boolean value) {}
 
     @Override
     public void setScrollEnabled(RNCWebViewWrapper view, boolean value) {}
