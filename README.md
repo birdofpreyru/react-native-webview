@@ -25,10 +25,6 @@ then replace `react-native-webview` imports in your TypeScript code by
 - [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
   / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
   &mdash; **Android:** Trigger `onError` callback on asset loading errors.
-- [Upstream issue #3305](https://github.com/react-native-webview/react-native-webview/issues/3305)
-  / [Upstream PR #3307](https://github.com/react-native-webview/react-native-webview/pull/3307)
-  &mdash; **Android:** Fixes `injectJavaScript` and other commands being executed
-  twice on each call with the RN's new architecture enabled.
 - [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
   / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS** Support of `window.print()` function.
 
