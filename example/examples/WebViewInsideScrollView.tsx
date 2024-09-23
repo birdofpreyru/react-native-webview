@@ -11,9 +11,11 @@ const HTML = `
         background: orange;
       }
     </style>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
   </head>
   <body>
     <h1>Example Page</h1>
+    <input />
   </body>
 </html>
 `;
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     backgroundColor: 'pink',
-    height: 400,
+    height: 300,
     margin: 12,
     width: 200,
   },
@@ -39,23 +41,12 @@ const styles = StyleSheet.create({
 });
 
 const WebViewInsideScrollView: React.FunctionComponent = () => (
-  <ScrollView
-    disableIntervalMomentum
-    disableScrollViewPanResponder
-    pagingEnabled={false}
-    snapToInterval={0}
-    snapToOffsets={[]}
-    snapToEnd={false}
-    snapToStart={false}
-    style={styles.scrollView}
-    onContentSizeChange={() => console.log('!!!!')}
-  >
+  <ScrollView style={styles.scrollView}>
     <View style={styles.placeholder}>
       <TextInput style={styles.input} />
     </View>
     <WebView
       scrollEnabled={false}
-      // focusable={false}
       source={{ html: HTML }}
       style={styles.webView}
     />
