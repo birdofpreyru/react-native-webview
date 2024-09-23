@@ -1879,22 +1879,22 @@ __metadata:
     "@semantic-release/git": 7.0.18
     "@types/invariant": ^2.2.37
     "@types/jest": ^29.5.13
-    "@types/react": 18.3.5
+    "@types/react": 18.3.8
     "@types/selenium-webdriver": 4.1.26
     appium: 1.22.3
     escape-string-regexp: ^4.0.0
-    eslint: 8.57.0
+    eslint: 8.57.1
     invariant: 2.2.4
     jest: ^29.7.0
     metro-config: ^0.80.12
     react: 18.3.1
     react-native: 0.75.3
     react-native-builder-bob: ^0.30.2
-    react-native-macos: 0.75.2
-    react-native-test-app: 3.10.5
-    react-native-windows: 0.75.2
+    react-native-macos: 0.75.4
+    react-native-test-app: 3.10.8
+    react-native-windows: 0.75.3
     selenium-appium: 1.0.2
-    selenium-webdriver: 4.24.0
+    selenium-webdriver: 4.25.0
     semantic-release: 15.14.0
     typescript: 5.6.2
     winappdriver: ^0.0.7
@@ -1939,10 +1939,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.57.0":
-  version: 8.57.0
-  resolution: "@eslint/js@npm:8.57.0"
-  checksum: 315dc65b0e9893e2bff139bddace7ea601ad77ed47b4550e73da8c9c2d2766c7a575c3cddf17ef85b8fd6a36ff34f91729d0dcca56e73ca887c10df91a41b0bb
+"@eslint/js@npm:8.57.1":
+  version: 8.57.1
+  resolution: "@eslint/js@npm:8.57.1"
+  checksum: 2afb77454c06e8316793d2e8e79a0154854d35e6782a1217da274ca60b5044d2c69d6091155234ed0551a1e408f86f09dd4ece02752c59568fa403e60611e880
   languageName: node
   linkType: hard
 
@@ -1962,14 +1962,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/config-array@npm:^0.11.14":
-  version: 0.11.14
-  resolution: "@humanwhocodes/config-array@npm:0.11.14"
+"@humanwhocodes/config-array@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "@humanwhocodes/config-array@npm:0.13.0"
   dependencies:
-    "@humanwhocodes/object-schema": ^2.0.2
+    "@humanwhocodes/object-schema": ^2.0.3
     debug: ^4.3.1
     minimatch: ^3.0.5
-  checksum: 861ccce9eaea5de19546653bccf75bf09fe878bc39c3aab00aeee2d2a0e654516adad38dd1098aab5e3af0145bbcbf3f309bdf4d964f8dab9dcd5834ae4c02f2
+  checksum: eae69ff9134025dd2924f0b430eb324981494be26f0fddd267a33c28711c4db643242cf9fddf7dadb9d16c96b54b2d2c073e60a56477df86e0173149313bd5d6
   languageName: node
   linkType: hard
 
@@ -1980,7 +1980,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@humanwhocodes/object-schema@npm:^2.0.2":
+"@humanwhocodes/object-schema@npm:^2.0.3":
   version: 2.0.3
   resolution: "@humanwhocodes/object-schema@npm:2.0.3"
   checksum: d3b78f6c5831888c6ecc899df0d03bcc25d46f3ad26a11d7ea52944dc36a35ef543fad965322174238d677a43d5c694434f6607532cff7077062513ad7022631
@@ -3769,9 +3769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-windows/cli@npm:0.75.2":
-  version: 0.75.2
-  resolution: "@react-native-windows/cli@npm:0.75.2"
+"@react-native-windows/cli@npm:0.75.3":
+  version: 0.75.3
+  resolution: "@react-native-windows/cli@npm:0.75.3"
   dependencies:
     "@react-native-windows/codegen": 0.75.1
     "@react-native-windows/fs": 0.75.0
@@ -3796,7 +3796,7 @@ __metadata:
     xpath: ^0.0.27
   peerDependencies:
     react-native: "*"
-  checksum: 29bee550bd6b3c9bb054f9fb8e1f238c01b83f43394671f35ea7e66bc4f73e326d08a062f3c48fce44a77f0065b62d90d1e5c90f0e050c8a2f6e92470dacb8b0
+  checksum: 1c16de60ffae8d90cbf8b3fbd3f17ce3ddf40bfd6ed323337609511e18a34d5891486439bbae45468d34937bc9dab9a404dfcfe1a03f0f406f23e34d43ea08ff
   languageName: node
   linkType: hard
 
@@ -4770,13 +4770,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.3.5, @types/react@npm:^18.3.5":
-  version: 18.3.5
-  resolution: "@types/react@npm:18.3.5"
+"@types/react@npm:18.3.8, @types/react@npm:^18.3.8":
+  version: 18.3.8
+  resolution: "@types/react@npm:18.3.8"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: 63d2ff473b348c902b68c20be55d2c5124d078c4336c2d1778f316c27789ed596657e8e714022ce14fb24994b0960fc64c913e629bb0bf85815355b0c31eb46b
+  checksum: a2cc2034746cde564a49a9d7f1ae57214bc83adb0daafd4724dc400569adc54c5a489c0e7d8656752b8748908a364d6811e4d7a2adc7f18a7f7179728d20147a
   languageName: node
   linkType: hard
 
@@ -9258,15 +9258,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.57.0, eslint@npm:^8.57.0":
-  version: 8.57.0
-  resolution: "eslint@npm:8.57.0"
+"eslint@npm:8.57.1, eslint@npm:^8.57.1":
+  version: 8.57.1
+  resolution: "eslint@npm:8.57.1"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.4
-    "@eslint/js": 8.57.0
-    "@humanwhocodes/config-array": ^0.11.14
+    "@eslint/js": 8.57.1
+    "@humanwhocodes/config-array": ^0.13.0
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     "@ungap/structured-clone": ^1.2.0
@@ -9302,7 +9302,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 3a48d7ff85ab420a8447e9810d8087aea5b1df9ef68c9151732b478de698389ee656fd895635b5f2871c89ee5a2652b3f343d11e9db6f8486880374ebc74a2d9
+  checksum: e2489bb7f86dd2011967759a09164e65744ef7688c310bc990612fc26953f34cc391872807486b15c06833bdff737726a23e9b4cdba5de144c311377dc41d91b
   languageName: node
   linkType: hard
 
@@ -16329,9 +16329,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-macos@npm:0.75.2":
-  version: 0.75.2
-  resolution: "react-native-macos@npm:0.75.2"
+"react-native-macos@npm:0.75.4":
+  version: 0.75.4
+  resolution: "react-native-macos@npm:0.75.4"
   dependencies:
     "@jest/create-cache-key-function": ^29.6.3
     "@react-native-community/cli": 14.0.0
@@ -16379,13 +16379,13 @@ __metadata:
       optional: true
   bin:
     react-native: cli.js
-  checksum: fb0b9ff878cf32b97f4ba0db3c0b7388fdffced9e9e0c9411b538cb5f81f9263a84563bdeb8e340acdb2e6cd228fd96d97fc586fa23e8f9b9a3cee7cb969ac64
+  checksum: 272ef4d620670978cb6b7e7c925c61978abebdaa716941004f065d034d0cd3a51d79c3e257fde5fb1b7b7ff87d6ef5b734e709e1afc9cd0b6abc14a28fc8a5aa
   languageName: node
   linkType: hard
 
-"react-native-test-app@npm:3.10.5":
-  version: 3.10.5
-  resolution: "react-native-test-app@npm:3.10.5"
+"react-native-test-app@npm:3.10.8":
+  version: 3.10.8
+  resolution: "react-native-test-app@npm:3.10.8"
   dependencies:
     "@rnx-kit/react-native-host": ^0.5.0
     ajv: ^8.0.0
@@ -16415,7 +16415,7 @@ __metadata:
     init: scripts/init.mjs
     init-test-app: scripts/init.mjs
     install-windows-test-app: windows/test-app.mjs
-  checksum: 4806f2b75ef85909caba5019e5871c9becba5b58ff65757d401fb9e3ee05b36fc7e68198b32b295fb8f66399cf10ea47d2c07d74a65eea15b7600cee1bd97ebf
+  checksum: 152454865ff99204f3dc4bf71b76ba07780222d44593e1a8457e887ff2c5affa3b7eb948d7039714d270931c7f1aa50ba282058a0605f646148c2cee758ede96
   languageName: node
   linkType: hard
 
@@ -16430,10 +16430,10 @@ __metadata:
     "@react-native/eslint-config": 0.75.3
     "@react-native/metro-config": 0.75.3
     "@react-native/typescript-config": 0.75.3
-    "@types/react": ^18.3.5
+    "@types/react": ^18.3.8
     babel-jest: ^29.7.0
     babel-plugin-module-resolver: ^5.0.2
-    eslint: ^8.57.0
+    eslint: ^8.57.1
     jest: ^29.7.0
     metro-config: ^0.80.12
     react: 18.3.1
@@ -16442,16 +16442,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"react-native-windows@npm:0.75.2":
-  version: 0.75.2
-  resolution: "react-native-windows@npm:0.75.2"
+"react-native-windows@npm:0.75.3":
+  version: 0.75.3
+  resolution: "react-native-windows@npm:0.75.3"
   dependencies:
     "@babel/runtime": ^7.0.0
     "@jest/create-cache-key-function": ^29.6.3
     "@react-native-community/cli": 14.0.0
     "@react-native-community/cli-platform-android": 14.0.0
     "@react-native-community/cli-platform-ios": 14.0.0
-    "@react-native-windows/cli": 0.75.2
+    "@react-native-windows/cli": 0.75.3
     "@react-native/assets": 1.0.0
     "@react-native/assets-registry": 0.75.2
     "@react-native/codegen": 0.75.2
@@ -16493,7 +16493,7 @@ __metadata:
     "@types/react": ^18.2.6
     react: ^18.2.0
     react-native: ^0.75.2
-  checksum: fa452cc96ebfcf0f4f2f2fd06b1f1415fae50ef788aefc99a53fa2d66d514cc0f166786233a3d951426bcb0d6f3cabaed1e552bd30f0bcbe4454e262734dbb01
+  checksum: d959072d37c69ad0110d3801bc666692adf5f0f6e3a6fd9783d3b42d8eb82877f83da0755b7c3594156c15e8b8c5518b2ed8ef1d33369b93b9ca15ef81a19840
   languageName: node
   linkType: hard
 
@@ -17369,15 +17369,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:4.24.0":
-  version: 4.24.0
-  resolution: "selenium-webdriver@npm:4.24.0"
+"selenium-webdriver@npm:4.25.0":
+  version: 4.25.0
+  resolution: "selenium-webdriver@npm:4.25.0"
   dependencies:
     "@bazel/runfiles": ^5.8.1
     jszip: ^3.10.1
     tmp: ^0.2.3
     ws: ^8.18.0
-  checksum: 96f91d2332fc964a275135b210804cf4d7db90bb248dbab6c492d39aa46b07ea860daa3eba1db2f2a1231e67fa69e99ca7936164a355eb255de3637db6a4b1a9
+  checksum: d58098dff8911830481a40754b782495db1e2ad860911e0b0435362dbbd4a84924e554162bc1977a957ed2388247cbef26f62ed621fde0d652d71f6a46238af2
   languageName: node
   linkType: hard
 
