@@ -26,6 +26,7 @@ import OpenWindow from './examples/OpenWindow';
 import Printing from './examples/Printing';
 import SuppressMenuItems from './examples/Suppress';
 import ClearData from './examples/ClearData';
+import WebViewInsideScrollView from './examples/WebViewInsideScrollView';
 
 type TestT = {
   title: string;
@@ -163,6 +164,14 @@ const TESTS = {
       return <SuppressMenuItems />;
     },
   },
+  WebViewInsideScrollView: {
+    title: 'WebViewInsideScrollView',
+    testId: 'WebViewInsideScrollView',
+    description: 'WebView placed inside ScrollView',
+    render() {
+      return <WebViewInsideScrollView />;
+    },
+  },
 } satisfies Record<string, TestT>;
 
 interface Props {}
@@ -290,6 +299,11 @@ export default class App extends Component<Props, State> {
             testID="testType_clearData"
             title="ClearData"
             onPress={() => this._changeTest('ClearData')}
+          />
+          <Button
+            testID="testType_WebViewInsideScrollView"
+            title="WebViewInsideScrollView"
+            onPress={() => this._changeTest('WebViewInsideScrollView')}
           />
         </View>
 
