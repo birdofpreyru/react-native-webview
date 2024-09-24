@@ -55,7 +55,7 @@
     "@semantic-release/git": "7.0.18",
     "@types/invariant": "^2.2.37",
     "@types/jest": "^29.5.13",
-    "@types/react": "18.3.8",
+    "@types/react": "18.3.9",
     "@types/selenium-webdriver": "4.1.26",
     "appium": "1.22.3",
     "eslint": "8.57.1",

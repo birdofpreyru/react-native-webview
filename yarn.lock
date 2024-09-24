@@ -1879,7 +1879,7 @@ __metadata:
     "@semantic-release/git": 7.0.18
     "@types/invariant": ^2.2.37
     "@types/jest": ^29.5.13
-    "@types/react": 18.3.8
+    "@types/react": 18.3.9
     "@types/selenium-webdriver": 4.1.26
     appium: 1.22.3
     escape-string-regexp: ^4.0.0
@@ -4770,13 +4770,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.3.8, @types/react@npm:^18.3.8":
-  version: 18.3.8
-  resolution: "@types/react@npm:18.3.8"
+"@types/react@npm:18.3.9, @types/react@npm:^18.3.9":
+  version: 18.3.9
+  resolution: "@types/react@npm:18.3.9"
   dependencies:
     "@types/prop-types": "*"
     csstype: ^3.0.2
-  checksum: a2cc2034746cde564a49a9d7f1ae57214bc83adb0daafd4724dc400569adc54c5a489c0e7d8656752b8748908a364d6811e4d7a2adc7f18a7f7179728d20147a
+  checksum: ac8c7cf6f9c5c2ecef790f3db6f98c672fdec0884f4e4730777fd18823207231cdd1d2e4673f473ef17a096c73c87bff309e83b026fb2602ba068371f0dc54fe
   languageName: node
   linkType: hard
 
@@ -16430,7 +16430,7 @@ __metadata:
     "@react-native/eslint-config": 0.75.3
     "@react-native/metro-config": 0.75.3
     "@react-native/typescript-config": 0.75.3
-    "@types/react": ^18.3.8
+    "@types/react": ^18.3.9
     babel-jest: ^29.7.0
     babel-plugin-module-resolver: ^5.0.2
     eslint: ^8.57.1
