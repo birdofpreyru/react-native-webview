@@ -1890,8 +1890,8 @@ __metadata:
     react: 18.3.1
     react-native: 0.75.3
     react-native-builder-bob: ^0.30.2
-    react-native-macos: 0.75.4
-    react-native-test-app: 3.10.8
+    react-native-macos: 0.75.5
+    react-native-test-app: 3.10.10
     react-native-windows: 0.75.3
     selenium-appium: 1.0.2
     selenium-webdriver: 4.25.0
@@ -16329,9 +16329,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-macos@npm:0.75.4":
-  version: 0.75.4
-  resolution: "react-native-macos@npm:0.75.4"
+"react-native-macos@npm:0.75.5":
+  version: 0.75.5
+  resolution: "react-native-macos@npm:0.75.5"
   dependencies:
     "@jest/create-cache-key-function": ^29.6.3
     "@react-native-community/cli": 14.0.0
@@ -16379,13 +16379,13 @@ __metadata:
       optional: true
   bin:
     react-native: cli.js
-  checksum: 272ef4d620670978cb6b7e7c925c61978abebdaa716941004f065d034d0cd3a51d79c3e257fde5fb1b7b7ff87d6ef5b734e709e1afc9cd0b6abc14a28fc8a5aa
+  checksum: 5d27b4e735e87a425c45a81d5eb15e3afa2c2c27250ba44fa9191780016f15a5bda8a038db28fb067aba87d92d578cf25e4f98aecc73e0b43e97c7918fccabef
   languageName: node
   linkType: hard
 
-"react-native-test-app@npm:3.10.8":
-  version: 3.10.8
-  resolution: "react-native-test-app@npm:3.10.8"
+"react-native-test-app@npm:3.10.10":
+  version: 3.10.10
+  resolution: "react-native-test-app@npm:3.10.10"
   dependencies:
     "@rnx-kit/react-native-host": ^0.5.0
     ajv: ^8.0.0
@@ -16415,7 +16415,7 @@ __metadata:
     init: scripts/init.mjs
     init-test-app: scripts/init.mjs
     install-windows-test-app: windows/test-app.mjs
-  checksum: 152454865ff99204f3dc4bf71b76ba07780222d44593e1a8457e887ff2c5affa3b7eb948d7039714d270931c7f1aa50ba282058a0605f646148c2cee758ede96
+  checksum: eab41098fb0358766802198fa5bed16d8344c4d8b1e2a325857ec1ee3b1d6617287c8c5620e35c9e815c40eaee29fc9582d73ad21b03256b568755f5209cbaaa
   languageName: node
   linkType: hard
 
