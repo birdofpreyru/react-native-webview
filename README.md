@@ -22,6 +22,9 @@ then replace `react-native-webview` imports in your TypeScript code by
 `@dr.pogodin/react-native-webview` imports.
 
 **Current Differences from the Upstream:**
+- [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
+  &mdash; **Android:** Accept the input focus only when a touch on WebView hits
+  a focusable (text input) element inside the WebView's content.
 - [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
   / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
   &mdash; **Android:** Trigger `onError` callback on asset loading errors.
