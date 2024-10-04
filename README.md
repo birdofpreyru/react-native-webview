@@ -33,6 +33,29 @@ then replace `react-native-webview` imports in your TypeScript code by
 
 [![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
 
+### Sponsored By
+<table>
+  <tr>
+    <td width="150px">
+      <a href="https://github.com/digitalfabrik/integreat-app">
+        <img
+          alt="Integreat App"
+          src="https://raw.githubusercontent.com/birdofpreyru/react-native-static-server/master/.README/logo-integreat.svg"
+          width="100%"
+          height="auto"
+        >
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/digitalfabrik/integreat-app">Integreat</a>
+      sponsored the effort to fix
+      <a href="https://github.com/react-native-webview/react-native-webview/issues/3014">
+        the upstream issue #3014
+      </a>.
+    </td>
+  </tr>
+</table>
+
 ---
 
 **React Native WebView** is a community-maintained WebView component for React Native. It is intended to be a replacement for the built-in WebView (which was [removed from core](https://github.com/react-native-community/discussions-and-proposals/pull/3)).
