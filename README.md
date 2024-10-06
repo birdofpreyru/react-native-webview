@@ -11,9 +11,9 @@
 **NOTE:** _This is a customized fork of the upstream
 [react-native-webview](https://www.npmjs.com/package/react-native-webview)
 library. It follows latest upstream releases, and applies on top of them selected
-fixes and PRs faster that take ages to be merged in into the upstream._
+fixes and PRs, faster than the ages it takes to merge them into the upstream._
 
-To use this for remove the original `react-native-webview` dependency from
+To use this fork remove the original `react-native-webview` dependency from
 your `package.json`, then install the forked package as
 ```shell
 npm install --save @dr.pogodin/react-native-webview
@@ -23,6 +23,7 @@ then replace `react-native-webview` imports in your TypeScript code by
 
 **Current Differences from the Upstream:**
 - [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
+  / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)
   &mdash; **Android:** Accept the input focus only when a touch on WebView hits
   a focusable (text input) element inside the WebView's content.
 - [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
@@ -30,6 +31,9 @@ then replace `react-native-webview` imports in your TypeScript code by
   &mdash; **Android:** Trigger `onError` callback on asset loading errors.
 - [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
   / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS** Support of `window.print()` function.
+- Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
+  is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
+- Some dependencies are updated to their newer versions.
 
 [![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
 
