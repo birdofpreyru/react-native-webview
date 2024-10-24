@@ -568,15 +568,23 @@ RCTAutoInsetsProtocol>
   }
 }
 
+// BEWARE: Earlier initialization inside didMoveToSuperview prevents loaded
+// HTML pages from loading and evaluating JavaScript assets. See issues:
+// https://github.com/birdofpreyru/react-native-webview/issues/5
+// https://github.com/react-native-webview/react-native-webview/issues/3578
+// Thus, this code block, introduced in the upstream v13.12.3, is commented out
+// in our fork, to avoid the regression, at least until the issue is addressed
+// in the upstream.
+//
 // react-native-mac os does not support didMoveToSuperView
-#if !TARGET_OS_OSX
-- (void)didMoveToSuperview
-{
-  if (self.superview != nil && _webView == nil) {
-    [self initializeWebView];
-  }
-}
-#endif // !TARGET_OS_OSX
+// #if !TARGET_OS_OSX
+// - (void)didMoveToSuperview
+// {
+//  if (self.superview != nil && _webView == nil) {
+//    [self initializeWebView];
+//  }
+// }
+// #endif // !TARGET_OS_OSX
 
 - (void)didMoveToWindow
 {
