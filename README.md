@@ -26,13 +26,21 @@ then replace `react-native-webview` imports in your TypeScript code by
   / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)
   &mdash; **Android:** Accept the input focus only when a touch on WebView hits
   a focusable (text input) element inside the WebView's content.
+
 - [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
   / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
   &mdash; **Android:** Trigger `onError` callback on asset loading errors.
+
 - [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
-  / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS** Support of `window.print()` function.
+  / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS:** Support of `window.print()` function.
+
+- [Upstream issue #3578](https://github.com/react-native-webview/react-native-webview/issues/3578)
+  &mdash; **iOS**: Fixed loading of JS assets (reverts the change from
+  the upstream v13.12.3 that led to the regression).
+
 - Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
   is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
+
 - Some dependencies are updated to their newer versions.
 
 [![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
