@@ -20,6 +20,7 @@ class TopRenderProcessGoneEvent(viewId: Int, private val mEventData: WritableMap
 
   override fun getCoalescingKey(): Short = 0
 
+  @Deprecated("Deprecated in Java")
   override fun dispatch(rctEventEmitter: RCTEventEmitter) =
     rctEventEmitter.receiveEvent(viewTag, eventName, mEventData)
 

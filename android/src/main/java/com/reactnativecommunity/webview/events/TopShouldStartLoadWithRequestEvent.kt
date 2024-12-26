@@ -24,6 +24,7 @@ class TopShouldStartLoadWithRequestEvent(viewId: Int, private val mData: Writabl
 
   override fun getCoalescingKey(): Short = 0
 
+  @Deprecated("Deprecated in Java")
   override fun dispatch(rctEventEmitter: RCTEventEmitter) =
     rctEventEmitter.receiveEvent(viewTag, EVENT_NAME, mData)
 }

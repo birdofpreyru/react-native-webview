@@ -18,6 +18,7 @@ class TopMessageEvent(viewId: Int, private val mEventData: WritableMap) : Event<
 
   override fun getCoalescingKey(): Short = 0
 
+  @Deprecated("Deprecated in Java")
   override fun dispatch(rctEventEmitter: RCTEventEmitter) {
     rctEventEmitter.receiveEvent(viewTag, EVENT_NAME, mEventData)
   }

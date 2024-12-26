@@ -23,9 +23,7 @@ import androidx.core.util.Pair;
 import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.UIManagerHelper;
 import com.reactnativecommunity.webview.events.TopHttpErrorEvent;
 import com.reactnativecommunity.webview.events.TopLoadingErrorEvent;
@@ -60,11 +58,7 @@ public class RNCWebViewClient extends WebViewClient {
         super.onPageFinished(webView, url);
         String cookies = CookieManager.getInstance().getCookie(url);
         if (cookies != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                CookieManager.getInstance().flush();
-            }else {
-                CookieSyncManager.getInstance().sync();
-            }
+            CookieManager.getInstance().flush();
         }
 
         if (!mLastLoadFailed) {
@@ -145,7 +139,6 @@ public class RNCWebViewClient extends WebViewClient {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         final String url = request.getUrl().toString();
@@ -238,8 +231,7 @@ public class RNCWebViewClient extends WebViewClient {
         String description = error.getDescription().toString();
         int errorCode = error.getErrorCode();
 
-        if (ignoreErrFailedForThisURL != null
-                && failingUrl.equals(ignoreErrFailedForThisURL)
+        if (failingUrl.equals(ignoreErrFailedForThisURL)
                 && errorCode == -1
                 && description.equals("net::ERR_FAILED")) {
 
@@ -273,7 +265,6 @@ public class RNCWebViewClient extends WebViewClient {
         UIManagerHelper.getEventDispatcherForReactTag((ReactContext) webView.getContext(), reactTag).dispatchEvent(new TopLoadingErrorEvent(reactTag, eventData));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onReceivedHttpError(
             WebView webView,

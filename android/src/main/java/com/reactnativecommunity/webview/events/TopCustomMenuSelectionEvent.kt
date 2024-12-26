@@ -19,6 +19,7 @@ class TopCustomMenuSelectionEvent(viewId: Int, private val mEventData: WritableM
 
   override fun getCoalescingKey(): Short = 0
 
+  @Deprecated("Deprecated in Java")
   override fun dispatch(rctEventEmitter: RCTEventEmitter) =
     rctEventEmitter.receiveEvent(viewTag, eventName, mEventData)
 }

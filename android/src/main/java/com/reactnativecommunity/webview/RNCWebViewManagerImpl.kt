@@ -218,8 +218,8 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
                     return Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)
                 }
             }
-            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia);
-            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent);
+            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia)
+            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent)
             webView.webChromeClient = webChromeClient
         }
     }

@@ -1,11 +1,9 @@
 package com.reactnativecommunity.webview;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
@@ -19,7 +17,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Arguments;
@@ -161,9 +158,7 @@ public class RNCWebChromeClient extends WebChromeClient implements LifecycleEven
                 } else {
                   /**
                    * Legacy handling (Kept in case it was working under some conditions (given Android version or something))
-                   *
                    * Try to ask user to grant permission using Activity.requestPermissions
-                   *
                    * Find more details here: https://github.com/react-native-webview/react-native-webview/pull/2732
                    */
                   androidPermission = PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID;
