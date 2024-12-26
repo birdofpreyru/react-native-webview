@@ -34,10 +34,6 @@ then replace `react-native-webview` imports in your TypeScript code by
 - [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
   / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS:** Support of `window.print()` function.
 
-- [Upstream issue #3578](https://github.com/react-native-webview/react-native-webview/issues/3578)
-  &mdash; **iOS**: Fixed loading of JS assets (reverts the change from
-  the upstream v13.12.3 that led to the regression).
-
 - Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
   is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
 
