@@ -547,9 +547,6 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
             }
           });
         }
-
-        @JavascriptInterface
-        public String injectedObjectJson() { return injectedObjectJson; }
     }
 
 
