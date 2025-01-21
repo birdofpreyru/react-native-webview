@@ -773,6 +773,7 @@ RCTAutoInsetsProtocol>
     if (_onMessage) {
       NSMutableDictionary<NSString *, id> *event = [self baseEvent];
       [event addEntriesFromDictionary: @{@"data": message.body}];
+      [event addEntriesFromDictionary: @{@"url": message.frameInfo.request.URL.absoluteString}];
       _onMessage(event);
     }
   } else if ([message.name isEqualToString:PrintingHandlerName]) {
