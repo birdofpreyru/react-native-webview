@@ -433,7 +433,7 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
           // This emulates a rapid click outside the visible WebView viewport, which causes
           // the WebView to re-evaluate the hit test (and we hope there is no interactive element
           // at that point outside WebView viewport.
-          lastFocusResetTimestamp = 0;
+          lastFocusResetTimestamp = now;
           dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, -12345, -12345, 0));
           dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, -12345, -12345, 0));
 
