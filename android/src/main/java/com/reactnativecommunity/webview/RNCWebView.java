@@ -58,6 +58,11 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     protected @Nullable
     String injectedJSBeforeContentLoaded;
     protected static final String JAVASCRIPT_INTERFACE = "ReactNativeWebView";
+
+    // NOTE: The GUID included into the command name is an arbitrary string,
+    // just to ensure it is hardly clash with any user-defined message from JS to Native.
+    protected static final String PRINT_MESSAGE = "RNWebViewPrint-b8a01b56-b543-460f-b250-bb29917a05d3";
+
     protected @Nullable
     RNCWebViewBridge fallbackBridge;
     protected @Nullable
@@ -270,7 +275,12 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
             this.bridgeListener = new WebViewCompat.WebMessageListener() {
               @Override
               public void onPostMessage(@NonNull WebView view, @NonNull WebMessageCompat message, @NonNull Uri sourceOrigin, boolean isMainFrame, @NonNull JavaScriptReplyProxy replyProxy) {
-                RNCWebView.this.onMessage(message.getData(), sourceOrigin.toString());
+                String data = message.getData();
+                if (data != null && data.equals(PRINT_MESSAGE)) {
+                  RNCWebView.this.print();
+                } else {
+                  RNCWebView.this.onMessage(data, sourceOrigin.toString());
+                }
               }
             };
             WebViewCompat.addWebMessageListener(
@@ -329,7 +339,11 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         if (getSettings().getJavaScriptEnabled()) {
           // This is necessary to support window.print() in the loaded web pages.
           evaluateJavascriptWithFallback(
-            "(function(){window.print=function(){window.ReactNativeWebView.print();};})();"
+            "(function(){window.print=function(){window."
+              + JAVASCRIPT_INTERFACE
+              + ".postMessage(\""
+                + PRINT_MESSAGE
+              + "\");};})();"
           );
 
           if (injectedJSBeforeContentLoaded != null &&
@@ -348,9 +362,6 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     }
 
     public void onMessage(String message, String sourceUrl) {
-        ThemedReactContext reactContext = getThemedReactContext();
-        RNCWebView mWebView = this;
-
         if (mRNCWebViewClient != null) {
             WebView webView = this;
             webView.post(new Runnable() {
@@ -379,6 +390,25 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
                 dispatchEvent(this, new TopMessageEvent(RNCWebViewWrapper.getReactTagFromWebView(this), eventData));
             }
         }
+    }
+
+    /**
+     * Prints the current page loaded into the WebView.
+     */
+    public void print() {
+      // This code is adopted from https://developer.android.com/training/printing/html-docs
+      // but all WebView methods must be called from the same thread, and this bridge method
+      // is called on a different thread, thus the need to post a runnable to the handler.
+      Handler handler = getHandler();
+      handler.post(() -> {
+        PrintManager manager = (PrintManager) getContext().getSystemService(Context.PRINT_SERVICE);
+        String jobName = getTitle();
+        if (jobName == null) jobName = "Empty page";
+        PrintDocumentAdapter adapter = createPrintDocumentAdapter(jobName);
+        PrintJob job = manager.print(jobName, adapter, new PrintAttributes.Builder().build());
+        // NOTE: Here `job` can be kept around and used to further check on the print job status,
+        // but it is not required, according to the docs, so no need to do it for now.
+      });
     }
 
     protected void dispatchDirectMessage(WritableMap data) {
@@ -521,31 +551,13 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
          */
         @JavascriptInterface
         public void postMessage(String message) {
-            if (mWebView.getMessagingEnabled()) {
+            if (message.equals(PRINT_MESSAGE)) {
+                mWebView.print();
+            } else if (mWebView.getMessagingEnabled()) {
                 mWebView.onMessage(message, mWebView.getUrl());
             } else {
                 FLog.w(TAG, "ReactNativeWebView.postMessage method was called but messaging is disabled. Pass an onMessage handler to the WebView.");
             }
-        }
-
-        @JavascriptInterface
-        public void print() {
-          // This code is adopted from https://developer.android.com/training/printing/html-docs
-          // but all WebView methods must be called from the same thread, and this bridge method
-          // is called on a different thread, thus the need to post a runnable to the handler.
-          WebView view = this.mWebView;
-          Handler handler = view.getHandler();
-          handler.post(new Runnable() {
-            @Override
-            public void run() {
-              PrintManager manager = (PrintManager) view.getContext().getSystemService(Context.PRINT_SERVICE);
-              String jobName = view.getTitle();
-              PrintDocumentAdapter adapter = view.createPrintDocumentAdapter(jobName);
-              PrintJob job = manager.print(jobName, adapter, new PrintAttributes.Builder().build());
-              // NOTE: Here `job` can be kept around and used to further check on the print job status,
-              // but it is not required, according to the docs, so no need to do it for now.
-            }
-          });
         }
     }
 

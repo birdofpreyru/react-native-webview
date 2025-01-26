@@ -11,7 +11,7 @@
     "Thibault Malbranche <malbranche.thibault@gmail.com>"
   ],
   "license": "MIT",
-  "version": "13.15.0",
+  "version": "13.15.1",
   "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "scripts": {
     "android": "react-native run-android",
@@ -39,14 +39,14 @@
     "react-native": "*"
   },
   "dependencies": {
-    "escape-string-regexp": "^4.0.0",
+    "escape-string-regexp": "^5.0.0",
     "invariant": "2.2.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
-    "@babel/core": "^7.26.0",
-    "@babel/runtime": "^7.26.0",
-    "@callstack/react-native-visionos": "0.76.2",
+    "@babel/core": "^7.26.7",
+    "@babel/runtime": "^7.26.7",
+    "@callstack/react-native-visionos": "0.77.0",
     "@react-native/babel-preset": "0.77.0",
     "@react-native/eslint-config": "0.77.0",
     "@react-native/metro-config": "0.77.0",
@@ -64,8 +64,8 @@
     "react-native": "0.77.0",
     "react-native-builder-bob": "^0.35.2",
     "react-native-macos": "0.76.6",
-    "react-native-test-app": "4.0.9",
-    "react-native-windows": "0.76.5",
+    "react-native-test-app": "4.0.10",
+    "react-native-windows": "0.77.0",
     "selenium-appium": "1.0.2",
     "selenium-webdriver": "4.28.1",
     "semantic-release": "15.14.0",
