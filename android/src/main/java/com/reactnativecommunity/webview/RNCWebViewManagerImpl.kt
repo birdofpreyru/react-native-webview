@@ -65,7 +65,7 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
 
     fun createViewInstance(context: ThemedReactContext): RNCWebViewWrapper {
       val webView = createRNCWebViewInstance(context)
-      return createViewInstance(context, webView);
+      return createViewInstance(context, webView)
     }
 
     fun createViewInstance(context: ThemedReactContext, webView: RNCWebView): RNCWebViewWrapper {
@@ -207,8 +207,8 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
                         mWebView.themedReactContext.removeLifecycleEventListener(this)
                     }
                 }
-            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia);
-            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent);
+            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia)
+            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent)
             webView.webChromeClient = webChromeClient
         } else {
             var webChromeClient = webView.webChromeClient as RNCWebChromeClient?
@@ -426,7 +426,7 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
                 val headerMap = HashMap<String, String?>()
                 if (source.hasKey("headers")) {
                     if (newArch) {
-                      val headerArray = source.getArray("headers");
+                      val headerArray = source.getArray("headers")
                       for (header in headerArray!!.toArrayList()) {
                         val headerCasted = header as HashMap<String, String>
                         val name = headerCasted.get("name") ?: ""
@@ -471,21 +471,21 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
         val view = viewWrapper.webView
         // Don't do anything when incognito is disabled
         if (!enabled) {
-            return;
+            return
         }
 
         // Remove all previous cookies
-        CookieManager.getInstance().removeAllCookies(null);
+        CookieManager.getInstance().removeAllCookies(null)
 
         // Disable caching
         view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-        view.clearHistory();
-        view.clearCache(true);
+        view.clearHistory()
+        view.clearCache(true)
 
         // No form data or autofill enabled
-        view.clearFormData();
-        view.settings.savePassword = false;
-        view.settings.saveFormData = false;
+        view.clearFormData()
+        view.settings.savePassword = false
+        view.settings.saveFormData = false
     }
 
     fun setInjectedJavaScript(viewWrapper: RNCWebViewWrapper, injectedJavaScript: String?) {
@@ -550,12 +550,12 @@ class RNCWebViewManagerImpl(private val newArch: Boolean = false) {
 
     fun setAllowFileAccess(viewWrapper: RNCWebViewWrapper, allowFileAccess: Boolean) {
         val view = viewWrapper.webView
-        view.settings.allowFileAccess = allowFileAccess;
+        view.settings.allowFileAccess = allowFileAccess
     }
 
     fun setAllowFileAccessFromFileURLs(viewWrapper: RNCWebViewWrapper, value: Boolean) {
         val view = viewWrapper.webView
-        view.settings.allowFileAccessFromFileURLs = value;
+        view.settings.allowFileAccessFromFileURLs = value
     }
 
     fun setAllowsFullscreenVideo(viewWrapper: RNCWebViewWrapper, value: Boolean) {

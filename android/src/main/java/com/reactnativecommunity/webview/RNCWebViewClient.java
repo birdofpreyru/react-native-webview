@@ -17,7 +17,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 
 import com.facebook.common.logging.FLog;
@@ -32,7 +31,6 @@ import com.reactnativecommunity.webview.events.TopLoadingStartEvent;
 import com.reactnativecommunity.webview.events.TopRenderProcessGoneEvent;
 import com.reactnativecommunity.webview.events.TopShouldStartLoadWithRequestEvent;
 import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -285,10 +283,6 @@ public class RNCWebViewClient extends WebViewClient {
     @TargetApi(Build.VERSION_CODES.O)
     @Override
     public boolean onRenderProcessGone(WebView webView, RenderProcessGoneDetail detail) {
-        // WebViewClient.onRenderProcessGone was added in O.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return false;
-        }
         super.onRenderProcessGone(webView, detail);
 
         if(detail.didCrash()){
