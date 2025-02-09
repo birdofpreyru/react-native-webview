@@ -435,7 +435,7 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
       // result of the hit test, but it may be non-exhaustive. Also getHitTestResult() may return
       // a stale result, but that's not a problem as a touch will repeat the requestFocus() call,
       // and it will get an up-to-date hit result in that next call.
-      var hit = this.getHitTestResult();
+      HitTestResult hit = this.getHitTestResult();
       if (hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
         return super.requestFocus(direction, previouslyFocusedRect);
       } else return false;
@@ -448,9 +448,9 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         // If the last hit test in WebView matched an input field, we must reset it on blurring
         // to avoid that stale hit test result to be reused by requestFocus() when the component
         // is clicked again. There is a slim
-        var hit = this.getHitTestResult();
+        HitTestResult hit = this.getHitTestResult();
         if (hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
-          var now = SystemClock.uptimeMillis();
+          long now = SystemClock.uptimeMillis();
 
           // There is a slim chance that our reset does not work, if our emulated off-viewport
           // click below hits some focusable off-viewport element, to counter that we have this
