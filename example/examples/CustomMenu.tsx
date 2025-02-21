@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -56,8 +56,8 @@ const HTML = `
 
 // export default class CustomMenu extends Component<Props, State> {
 const CustomMenu = () => {
-  const [selectionInfo, setSelectionInfo] = React.useState<any>(null);
-  const webviewRef = React.useRef();
+  const [selectionInfo, setSelectionInfo] = useState<any>(null);
+  const webviewRef = useRef(null);
 
   return (
     <View>

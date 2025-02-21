@@ -9,7 +9,7 @@ type State = {};
 export default class ClearData extends Component<Props, State> {
   state = {};
 
-  webView: React.RefObject<typeof WebView>;
+  webView: React.RefObject<typeof WebView | null>;
 
   constructor(props: Props) {
     super(props);
