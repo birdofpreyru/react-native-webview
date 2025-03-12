@@ -170,12 +170,12 @@ export interface NativeProps extends ViewProps {
   onRenderProcessGone?: DirectEventHandler<WebViewRenderProcessGoneEvent>;
   overScrollMode?: string;
   saveFormDataDisabled?: boolean;
-  scalesPageToFit?: boolean;
-  setBuiltInZoomControls?: boolean;
+  scalesPageToFit?: WithDefault<boolean, true>;
+  setBuiltInZoomControls?: WithDefault<boolean, true>;
   setDisplayZoomControls?: boolean;
-  setSupportMultipleWindows?: boolean;
+  setSupportMultipleWindows?: WithDefault<boolean, true>;
   textZoom?: Int32;
-  thirdPartyCookiesEnabled?: boolean;
+  thirdPartyCookiesEnabled?: WithDefault<boolean, true>;
   // Workaround to watch if listener if defined
   hasOnScroll?: boolean;
   // !Android only
@@ -186,10 +186,10 @@ export interface NativeProps extends ViewProps {
   allowsInlineMediaPlayback?: boolean;
   allowsPictureInPictureMediaPlayback?: boolean;
   allowsAirPlayForMediaPlayback?: boolean;
-  allowsLinkPreview?: boolean;
-  automaticallyAdjustContentInsets?: boolean;
-  autoManageStatusBarEnabled?: boolean;
-  bounces?: boolean;
+  allowsLinkPreview?: WithDefault<boolean, true>;
+  automaticallyAdjustContentInsets?: WithDefault<boolean, true>;
+  autoManageStatusBarEnabled?: WithDefault<boolean, true>;
+  bounces?: WithDefault<boolean, true>;
   contentInset?: Readonly<{
     top?: Double;
     left?: Double;
@@ -219,10 +219,10 @@ export interface NativeProps extends ViewProps {
     'phoneNumber'
   >;
   decelerationRate?: Double;
-  directionalLockEnabled?: boolean;
+  directionalLockEnabled?: WithDefault<boolean, true>;
   enableApplePay?: boolean;
   hideKeyboardAccessoryView?: boolean;
-  keyboardDisplayRequiresUserAction?: boolean;
+  keyboardDisplayRequiresUserAction?: WithDefault<boolean, true>;
   limitsNavigationsToAppBoundDomains?: boolean;
   mediaCapturePermissionGrantType?: WithDefault<
     | 'prompt'
@@ -235,10 +235,10 @@ export interface NativeProps extends ViewProps {
   pagingEnabled?: boolean;
   pullToRefreshEnabled?: boolean;
   refreshControlLightMode?: boolean;
-  scrollEnabled?: boolean;
+  scrollEnabled?: WithDefault<boolean, true>;
   sharedCookiesEnabled?: boolean;
-  textInteractionEnabled?: boolean;
-  useSharedProcessPool?: boolean;
+  textInteractionEnabled?: WithDefault<boolean, true>;
+  useSharedProcessPool?: WithDefault<boolean, true>;
   onContentProcessDidTerminate?: DirectEventHandler<WebViewNativeEvent>;
   onCustomMenuSelection?: DirectEventHandler<WebViewCustomMenuSelectionEvent>;
   onFileDownload?: DirectEventHandler<WebViewDownloadEvent>;
@@ -247,7 +247,7 @@ export interface NativeProps extends ViewProps {
   suppressMenuItems?: Readonly<string>[];
   // Workaround to watch if listener if defined
   hasOnFileDownload?: boolean;
-  fraudulentWebsiteWarningEnabled?: boolean;
+  fraudulentWebsiteWarningEnabled?: WithDefault<boolean, true>;
   // !iOS only
 
   allowFileAccessFromFileURLs?: boolean;
@@ -257,16 +257,19 @@ export interface NativeProps extends ViewProps {
     username: string;
     password: string;
   }>;
-  cacheEnabled?: boolean;
+  cacheEnabled?: WithDefault<boolean, true>;
   incognito?: boolean;
   injectedJavaScript?: string;
   injectedJavaScriptBeforeContentLoaded?: string;
-  injectedJavaScriptForMainFrameOnly?: boolean;
-  injectedJavaScriptBeforeContentLoadedForMainFrameOnly?: boolean;
+  injectedJavaScriptForMainFrameOnly?: WithDefault<boolean, true>;
+  injectedJavaScriptBeforeContentLoadedForMainFrameOnly?: WithDefault<
+    boolean,
+    true
+  >;
   javaScriptCanOpenWindowsAutomatically?: boolean;
-  javaScriptEnabled?: boolean;
+  javaScriptEnabled?: WithDefault<boolean, true>;
   webviewDebuggingEnabled?: boolean;
-  mediaPlaybackRequiresUserAction?: boolean;
+  mediaPlaybackRequiresUserAction?: WithDefault<boolean, true>;
   messagingEnabled: boolean;
   onLoadingError: DirectEventHandler<WebViewErrorEvent>;
   onLoadingFinish: DirectEventHandler<WebViewNavigationEvent>;
@@ -278,8 +281,8 @@ export interface NativeProps extends ViewProps {
   hasOnOpenWindowEvent?: boolean;
   onScroll?: DirectEventHandler<ScrollEvent>;
   onShouldStartLoadWithRequest: DirectEventHandler<ShouldStartLoadRequestEvent>;
-  showsHorizontalScrollIndicator?: boolean;
-  showsVerticalScrollIndicator?: boolean;
+  showsHorizontalScrollIndicator?: WithDefault<boolean, true>;
+  showsVerticalScrollIndicator?: WithDefault<boolean, true>;
   newSource: Readonly<{
     uri?: string;
     method?: string;
