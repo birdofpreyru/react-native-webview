@@ -552,9 +552,10 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         @JavascriptInterface
         public void postMessage(String message) {
             if (message.equals(PRINT_MESSAGE)) {
-                mWebView.print();
+                mWebView.post(() -> mWebView.print());
             } else if (mWebView.getMessagingEnabled()) {
-                mWebView.onMessage(message, mWebView.getUrl());
+                // Post to main thread because `mWebView.getUrl()` requires to be executed on main.
+                mWebView.post(() -> mWebView.onMessage(message, mWebView.getUrl()));
             } else {
                 FLog.w(TAG, "ReactNativeWebView.postMessage method was called but messaging is disabled. Pass an onMessage handler to the WebView.");
             }
