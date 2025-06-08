@@ -283,6 +283,7 @@ export interface NativeProps extends ViewProps {
   onShouldStartLoadWithRequest: DirectEventHandler<ShouldStartLoadRequestEvent>;
   showsHorizontalScrollIndicator?: WithDefault<boolean, true>;
   showsVerticalScrollIndicator?: WithDefault<boolean, true>;
+  indicatorStyle?: WithDefault<'default' | 'black' | 'white', 'default'>;
   newSource: Readonly<{
     uri?: string;
     method?: string;
@@ -294,6 +295,7 @@ export interface NativeProps extends ViewProps {
   }>;
   userAgent?: string;
   injectedJavaScriptObject?: string;
+  paymentRequestEnabled?: boolean;
 }
 
 export interface NativeCommands {
