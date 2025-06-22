@@ -1,17 +1,17 @@
 {
+  "extends": "@react-native/typescript-config",
   "compilerOptions": {
+    // TODO: For now it is disabled, as it leads to a bunch of errors
+    // in the internal RN modules... perhaps because we import stuff we
+    // should not import.
+    // "customConditions": ["react-native-strict-api"],
     "rootDir": ".",
     "paths": {
       "@dr.pogodin/react-native-webview": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",
-    "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
@@ -19,10 +19,6 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
     "verbatimModuleSyntax": true
   }
 }

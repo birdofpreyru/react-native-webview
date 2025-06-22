@@ -13,13 +13,13 @@
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 
 import {
+  codegenNativeCommands,
   type ImageSourcePropType,
   Image,
   NativeModules,
   View,
 } from 'react-native';
 
-import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import invariant from 'invariant';
 import { RCTWebView, RCTWebView2 } from './WebViewNativeComponent.windows';
 import {
