@@ -9,6 +9,13 @@
     "paths": {
       "@dr.pogodin/react-native-webview": ["./src/index"]
     },
+
+    // TODO: We should get rid of it, but then we need to reconfigure
+    // the types build config (yarn prepare:types) to no catch misc config
+    // JS files in the root of the codebase (thus outside the root dir configured
+    // for TS).
+    "allowJs": false,
+
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "forceConsistentCasingInFileNames": true,
