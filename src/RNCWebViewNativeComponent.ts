@@ -268,6 +268,7 @@ export interface NativeProps extends ViewProps {
   mediaPlaybackRequiresUserAction?: CodegenTypes.WithDefault<boolean, true>;
   messagingEnabled: boolean;
   onLoadingError: CodegenTypes.DirectEventHandler<WebViewErrorEvent>;
+  onLoadingSubResourceError: CodegenTypes.DirectEventHandler<WebViewErrorEvent>;
   onLoadingFinish: CodegenTypes.DirectEventHandler<WebViewNavigationEvent>;
   onLoadingProgress: CodegenTypes.DirectEventHandler<WebViewNativeProgressEvent>;
   onLoadingStart: CodegenTypes.DirectEventHandler<WebViewNavigationEvent>;

@@ -32,6 +32,7 @@ import OpenWindow from './examples/OpenWindow';
 import Printing from './examples/Printing';
 import SuppressMenuItems from './examples/Suppress';
 import ClearData from './examples/ClearData';
+import SslError from './examples/SslError';
 import WebViewInsideScrollView from './examples/WebViewInsideScrollView';
 
 type TestT = {
@@ -178,6 +179,14 @@ const TESTS = {
       return <SuppressMenuItems />;
     },
   },
+  SslError: {
+    title: 'SslError',
+    testId: 'SslError',
+    description: 'SSL error test',
+    render() {
+      return <SslError />;
+    },
+  },
   WebViewInsideScrollView: {
     title: 'WebViewInsideScrollView',
     testId: 'WebViewInsideScrollView',
@@ -321,6 +330,11 @@ return (
           testID="testType_clearData"
           title="ClearData"
           onPress={() => changeTest('ClearData')}
+        />
+        <Button
+          testID="testType_sslError"
+          title="SslError"
+          onPress={() => changeTest('SslError')}
         />
         <Button
           testID="testType_WebViewInsideScrollView"
