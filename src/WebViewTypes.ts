@@ -4,7 +4,7 @@ import type {
   ViewProps,
   StyleProp,
   ViewStyle,
-  NativeMethodsMixin,
+  NativeMethods,
   UIManagerStatic,
   NativeScrollEvent,
 } from 'react-native';
@@ -57,13 +57,13 @@ export type State = NormalState | ErrorState;
 
 type Constructor<T> = new (...args: any[]) => T;
 
-declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> {}
-declare const NativeWebViewMacOSBase: Constructor<NativeMethodsMixin> &
+export declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> {}
+declare const NativeWebViewMacOSBase: Constructor<NativeMethods> &
   typeof NativeWebViewMacOSComponent;
 export class NativeWebViewMacOS extends NativeWebViewMacOSBase {}
 
-declare class NativeWebViewWindowsComponent extends Component<WindowsNativeWebViewProps> {}
-declare const NativeWebViewWindowsBase: Constructor<NativeMethodsMixin> &
+export declare class NativeWebViewWindowsComponent extends Component<WindowsNativeWebViewProps> {}
+declare const NativeWebViewWindowsBase: Constructor<NativeMethods> &
   typeof NativeWebViewWindowsComponent;
 export class NativeWebViewWindows extends NativeWebViewWindowsBase {}
 
