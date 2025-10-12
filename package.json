@@ -11,7 +11,7 @@
     "Thibault Malbranche <malbranche.thibault@gmail.com>"
   ],
   "license": "MIT",
-  "version": "13.16.3",
+  "version": "13.16.4",
   "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "scripts": {
     "android": "react-native run-android",
