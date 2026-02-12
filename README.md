@@ -8,36 +8,12 @@
 [![Dr. Pogodin Studio](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/logo-dr-pogodin-studio.svg)](https://dr.pogodin.studio/docs/react-native-webview)
 <!-- End of status badges section. -->
 
-**NOTE:** _This is a customized fork of the upstream
+This is a customized fork of the upstream
 [react-native-webview](https://www.npmjs.com/package/react-native-webview)
-library. It follows latest upstream releases, and applies on top of them selected
-fixes and PRs, faster than the ages it takes to merge them into the upstream._
-
-To use this fork remove the original `react-native-webview` dependency from
-your `package.json`, then install the forked package as
-```shell
-npm install --save @dr.pogodin/react-native-webview
-```
-then replace `react-native-webview` imports in your TypeScript code by
-`@dr.pogodin/react-native-webview` imports.
-
-**Current Differences from the Upstream:**
-- [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
-  / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)
-  &mdash; **Android:** Accept the input focus only when a touch on WebView hits
-  a focusable (text input) element inside the WebView's content.
-
-- [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
-  / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
-  &mdash; **Android:** Trigger `onError` callback on asset loading errors.
-
-- [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
-  / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS:** Support of `window.print()` function.
-
-- Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
-  is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
-
-- Some dependencies are updated to their newer versions.
+library. It follows the latest upstream releases, and applies on top of them
+selected fixes and PRs (the upstream maintainers just ignore all 3rd party
+issues and PRs, and have a bad habit of just close down unresolved issues
+and open PRs after some time).
 
 [![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
 
@@ -63,6 +39,34 @@ then replace `react-native-webview` imports in your TypeScript code by
     </td>
   </tr>
 </table>
+
+### Current Differences from the Upstream
+- [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
+  / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)
+  &mdash; **Android:** Accept the input focus only when a touch on WebView hits
+  a focusable (text input) element inside the WebView's content.
+
+- [Upstream issue #3289](https://github.com/react-native-webview/react-native-webview/issues/3289)
+  / [Upstream PR #3290](https://github.com/react-native-webview/react-native-webview/pull/3290)
+  &mdash; **Android:** Trigger `onError` callback on asset loading errors.
+
+- [Upstream issue #3317](https://github.com/react-native-webview/react-native-webview/issues/3317)
+  / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS:** Support of `window.print()` function.
+
+- Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
+  is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
+
+- Some dependencies are updated to their newer versions.
+
+### How To Migrage
+
+To use this fork, remove the original `react-native-webview` dependency from
+your `package.json`, then install the forked package
+```shell
+yarn add @dr.pogodin/react-native-webview
+```
+then replace `react-native-webview` imports in your TypeScript code by
+`@dr.pogodin/react-native-webview` imports.
 
 ---
 
