@@ -12,7 +12,7 @@ This is a customized fork of the upstream
 [react-native-webview](https://www.npmjs.com/package/react-native-webview)
 library. It follows the latest upstream releases, and applies on top of them
 selected fixes and PRs (the upstream maintainers just ignore all 3rd party
-issues and PRs, and have a bad habit of just close down unresolved issues
+issues and PRs, and have a bad habit of just closing down unresolved issues
 and open PRs after some time).
 
 [![Sponsor](https://raw.githubusercontent.com/birdofpreyru/react-native-webview/master/.README/sponsor.svg)](https://github.com/sponsors/birdofpreyru)
