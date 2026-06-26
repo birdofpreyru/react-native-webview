@@ -40,6 +40,10 @@ and open PRs after some time).
   </tr>
 </table>
 
+### [Contributors](https://github.com/birdofpreyru/react-native-webview/graphs/contributors)
+[<img width=36 src="https://avatars.githubusercontent.com/u/29095487?v=4&s=36" />](https://github.com/steffenkleinle)
+[<img width=36 src="https://avatars.githubusercontent.com/u/20144632?v=4&s=36" />](https://github.com/birdofpreyru)
+
 ### Current Differences from the Upstream
 - [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
   / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)

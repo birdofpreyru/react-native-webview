@@ -11,7 +11,7 @@
     "Thibault Malbranche <malbranche.thibault@gmail.com>"
   ],
   "license": "MIT",
-  "version": "13.17.3",
+  "version": "13.17.4",
   "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "scripts": {
     "android": "react-native run-android",
@@ -65,10 +65,10 @@
     "react-native": "0.86.0",
     "react-native-builder-bob": "^0.42.1",
     "react-native-macos": "0.81.7",
-    "react-native-test-app": "5.2.3",
-    "react-native-windows": "0.83.0",
+    "react-native-test-app": "5.4.1",
+    "react-native-windows": "0.84.0",
     "selenium-appium": "1.0.2",
-    "selenium-webdriver": "4.44.0",
+    "selenium-webdriver": "4.45.0",
     "typescript": "5.9.3",
     "winappdriver": "^0.0.7"
   },
