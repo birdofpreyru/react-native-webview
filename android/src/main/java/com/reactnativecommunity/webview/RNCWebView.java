@@ -424,6 +424,16 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         return true;
     }
 
+    // getHitTestResult() can throw a NullPointerException if the underlying AwContents of Chromium has already
+    // been destroyed but the View is still receiving focus events (e.g. focus dispatched during teardown).
+    private @Nullable HitTestResult safeGetHitTestResult() {
+      try {
+        return this.getHitTestResult();
+      } catch (NullPointerException e) {
+        return null;
+      }
+    }
+
     @Override
     public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
       // Only accept the focus if a focusable element inside the WebView's content has been touched.
@@ -431,8 +441,8 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
       // result of the hit test, but it may be non-exhaustive. Also getHitTestResult() may return
       // a stale result, but that's not a problem as a touch will repeat the requestFocus() call,
       // and it will get an up-to-date hit result in that next call.
-      HitTestResult hit = this.getHitTestResult();
-      if (hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
+      HitTestResult hit = safeGetHitTestResult();
+      if (hit != null && hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
         return super.requestFocus(direction, previouslyFocusedRect);
       } else return false;
     }
@@ -444,8 +454,8 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         // If the last hit test in WebView matched an input field, we must reset it on blurring
         // to avoid that stale hit test result to be reused by requestFocus() when the component
         // is clicked again. There is a slim
-        HitTestResult hit = this.getHitTestResult();
-        if (hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
+        HitTestResult hit = safeGetHitTestResult();
+        if (hit != null && hit.getType() == HitTestResult.EDIT_TEXT_TYPE) {
           long now = SystemClock.uptimeMillis();
 
           // There is a slim chance that our reset does not work, if our emulated off-viewport
