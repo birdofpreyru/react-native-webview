@@ -25,7 +25,7 @@ const HTML = `
 
 type Props = {};
 type State = {
-  backgroundColor: string,
+  backgroundColor: string;
 };
 
 export default class Injection extends Component<Props, State> {

@@ -107,7 +107,10 @@ export default class OpenWindow extends Component<Props, State> {
           onOpenWindow={onOpenWindow}
         />
         <Text style={styles.text}>{this.state.text}</Text>
-        <Button title="Reset webview" onPress={this.resetWebView} />
+        <Button
+          title="Reset webview"
+          onPress={this.resetWebView}
+        />
       </View>
     );
   }

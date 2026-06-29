@@ -19,3 +19,14 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+subprojects {
+    def useNougatMinSdk = {
+        if (project.ext.has("minSdkVersion")) {
+            project.ext.minSdkVersion = Math.max(project.ext.minSdkVersion as int, 24)
+        }
+    }
+
+    plugins.withId("com.android.application", useNougatMinSdk)
+    plugins.withId("com.android.library", useNougatMinSdk)
+}

@@ -45,6 +45,9 @@ and open PRs after some time).
 [<img width=36 src="https://avatars.githubusercontent.com/u/20144632?v=4&s=36" />](https://github.com/birdofpreyru)
 
 ### Current Differences from the Upstream
+
+- Improved TypeScript type definitions.
+
 - [Upstream issue #3014](https://github.com/react-native-webview/react-native-webview/issues/3014)
   / [Upstream PR #3575](https://github.com/react-native-webview/react-native-webview/pull/3575)
   &mdash; **Android:** Accept the input focus only when a touch on WebView hits
@@ -60,7 +63,9 @@ and open PRs after some time).
 - Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
   is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
 
-- Some dependencies are updated to their newer versions.
+- Sticks to the same development tooling used by React Native core, and most of the ecosystem: NodeJS, Yaml, Jest, _etc._
+
+- Many dependencies are updated to their newer versions.
 
 ### How To Migrage
 
@@ -82,10 +87,10 @@ then replace `react-native-webview` imports in your TypeScript code by
 Please note that maintainers spend a lot of free time working on this too so feel free to sponsor them, **it really makes a difference.**
 
 - [Thibault Malbranche](https://github.com/Titozzz) ([Twitter @titozzz](https://twitter.com/titozzz)) from [Brigad](https://www.brigad.co/en-gb/about-us)  
-[*Sponsor me* ❤️ !](https://github.com/sponsors/Titozzz)
-
+  [_Sponsor me_ ❤️ !](https://github.com/sponsors/Titozzz)
 
 Windows and macOS are managed by Microsoft, notably:
+
 - [Alexander Sklar](https://github.com/asklar) ([Twitter @alexsklar](https://twitter.com/alexsklar)) from [React Native for Windows](https://microsoft.github.io/react-native-windows/)
 - [Chiara Mooney](https://github.com/chiaramooney) from [React Native for Windows @ Microsoft](https://microsoft.github.io/react-native-windows/)
 
@@ -96,11 +101,11 @@ Shout-out to [Jamon Holmgren](https://github.com/jamonholmgren) from [Infinite R
 Maintaining WebView is very complex because it is often used for many different use cases (rendering SVGs, PDFs, login flows, and much more). We also support many platforms and both architectures of react-native.
 
 Since WebView was extracted from the React Native core, nearly 500 pull requests have been merged.  
-Considering that we have limited time, issues will mostly serve as a discussion place for the community, while **we will prioritize reviewing and merging pull requests.** 
+Considering that we have limited time, issues will mostly serve as a discussion place for the community, while **we will prioritize reviewing and merging pull requests.**
 
 ### Platform compatibility
 
-This project is compatible with **iOS**,  **Android**, **Windows** and **macOS**.  
+This project is compatible with **iOS**, **Android**, **Windows** and **macOS**.
 This project supports both **the old** (paper) **and the new architecture** (fabric).  
 This project is compatible with [expo](https://docs.expo.dev/versions/latest/sdk/webview/).
 
@@ -123,8 +128,13 @@ import { WebView } from 'react-native-webview';
 
 // ...
 const MyWebComponent = () => {
-  return <WebView source={{ uri: 'https://reactnative.dev/' }} style={{ flex: 1 }} />;
-}
+  return (
+    <WebView
+      source={{ uri: 'https://reactnative.dev/' }}
+      style={{ flex: 1 }}
+    />
+  );
+};
 ```
 
 For more, read the [API Reference](./docs/Reference.md) and [Guide](./docs/Guide.md). If you're interested in contributing, check out the [Contributing Guide](./docs/Contributing.md).

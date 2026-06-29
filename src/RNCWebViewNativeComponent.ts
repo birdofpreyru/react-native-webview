@@ -231,6 +231,7 @@ export interface NativeProps extends ViewProps {
   pagingEnabled?: boolean;
   pullToRefreshEnabled?: boolean;
   refreshControlLightMode?: boolean;
+  removeIosKeyboardObserver?: CodegenTypes.WithDefault<boolean, false>;
   scrollEnabled?: CodegenTypes.WithDefault<boolean, true>;
   sharedCookiesEnabled?: boolean;
   textInteractionEnabled?: CodegenTypes.WithDefault<boolean, true>;
@@ -302,24 +303,16 @@ export interface NativeCommands {
   stopLoading: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   injectJavaScript: (
     viewRef: React.ElementRef<HostComponent<NativeProps>>,
-    javascript: string
+    javascript: string,
   ) => void;
   requestFocus: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
-  postMessage: (
-    viewRef: React.ElementRef<HostComponent<NativeProps>>,
-    data: string
-  ) => void;
+  postMessage: (viewRef: React.ElementRef<HostComponent<NativeProps>>, data: string) => void;
   // Android Only
-  loadUrl: (
-    viewRef: React.ElementRef<HostComponent<NativeProps>>,
-    url: string
-  ) => void;
-  clearFormData: (
-    viewRef: React.ElementRef<HostComponent<NativeProps>>
-  ) => void;
+  loadUrl: (viewRef: React.ElementRef<HostComponent<NativeProps>>, url: string) => void;
+  clearFormData: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   clearCache: (
     viewRef: React.ElementRef<HostComponent<NativeProps>>,
-    includeDiskFiles: boolean
+    includeDiskFiles: boolean,
   ) => void;
   clearHistory: (viewRef: React.ElementRef<HostComponent<NativeProps>>) => void;
   // !Android Only
@@ -341,6 +334,4 @@ export const Commands = codegenNativeCommands<NativeCommands>({
   ],
 });
 
-export default codegenNativeComponent<NativeProps>(
-  'RNCWebView'
-) as HostComponent<NativeProps>;
+export default codegenNativeComponent<NativeProps>('RNCWebView') as HostComponent<NativeProps>;

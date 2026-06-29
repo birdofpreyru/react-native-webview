@@ -1,6 +1,5 @@
 package com.reactnativecommunity.webview;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.net.Uri;
@@ -283,7 +282,6 @@ public class RNCWebViewClient extends WebViewClient {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
     @Override
     public boolean onRenderProcessGone(WebView webView, RenderProcessGoneDetail detail) {
         super.onRenderProcessGone(webView, detail);

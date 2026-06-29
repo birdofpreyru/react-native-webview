@@ -82,9 +82,7 @@ import { WebView } from 'react-native-webview';
 
 class MyWeb extends Component {
   render() {
-    return (
-      <WebView source={{ uri: 'file:///android_asset/local-site.html' }} />
-    );
+    return <WebView source={{ uri: 'file:///android_asset/local-site.html' }} />;
   }
 }
 ```
@@ -180,18 +178,7 @@ Gravação de vídeo:
 
 ##### Android
 
-Adicione permissão no AndroidManifest.xml:
-
-```xml
-<manifest ...>
-  ......
-
- <!-- isso é necessário apenas para Android 4.1-5.1 (api 16-22) -->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-  ......
-</manifest>
-```
+O upload de arquivos não requer permissões de armazenamento nas versões Android compatíveis.
 
 ###### Disponibilidade da opção de câmera no upload para Android
 
@@ -201,12 +188,12 @@ Normalmente, os aplicativos que não têm permissão para usar a câmera podem s
 
 ##### Verifique se há suporte para upload de arquivos, com `static isFileUploadSupported()`
 
-O upload de arquivo usando `<input type="file" />` não é compatível com o Android 4.4 KitKat (consulte os [detalhes](https://github.com/delight-im/Android-AdvancedWebView/issues/4#issuecomment-70372146 )):
+O upload de arquivo usando `<input type="file" />` é compatível com Android:
 
 ```javascript
-import { WebView } from "react-native-webview";
+import { WebView } from 'react-native-webview';
 
-WebView.isFileUploadSupported().then(res => {
+WebView.isFileUploadSupported().then((res) => {
   if (res === true) {
     // o upload de arquivos é suportado
   } else {
@@ -275,7 +262,7 @@ Muitas vezes você vai querer enviar mensagens para as páginas da web carregada
 
 Para fazer isso, o React Native WebView expõe três opções diferentes:
 
-1. Reagir Nativo -> Web: A prop `injectedJavaScript` 
+1. Reagir Nativo -> Web: A prop `injectedJavaScript`
 2. Reagir Nativo -> Web: O método `injectJavaScript`
 3. Web -> React Native: O método `postMessage` e a prop `onMessage`
 
@@ -357,7 +344,7 @@ Ao definir `injectedJavaScriptBeforeContentLoadedForMainFrameOnly: false`, a inj
 
 > No iOS, ~~`injectedJavaScriptBeforeContentLoaded` executa um método no WebView chamado `evaluateJavaScript:completionHandler:`~~ – isso não é mais verdade a partir da versão `8.2.0`. Em vez disso, usamos um `WKUserScript` com tempo de injeção `WKUserScriptInjectionTimeAtDocumentStart`. Como consequência, `injectedJavaScriptBeforeContentLoaded` não retorna mais um valor de avaliação nem registra um aviso no console. No caso improvável de seu aplicativo depender desse comportamento, consulte as etapas de migração [aqui](https://github.com/react-native-webview/react-native-webview/pull/1119#issuecomment-574919464) para manter comportamento equivalente.
 > No Android, `injectedJavaScript` executa um método no Android WebView chamado `evaluateJavascriptWithFallback`
-> Observação sobre compatibilidade com Android: para aplicativos direcionados a `Build.VERSION_CODES.N` ou posterior, o estado JavaScript de um WebView vazio não é mais mantido em navegações como `loadUrl(java.lang.String)`. Por exemplo, variáveis ​​globais e funções definidas antes de chamar `loadUrl(java.lang.String)` não existirão na página carregada. Os aplicativos devem usar a API nativa do Android `addJavascriptInterface(Object, String)` para persistir objetos JavaScript nas navegações.
+> Observação sobre compatibilidade com Android: o estado JavaScript de um WebView vazio não é mantido em navegações como `loadUrl(java.lang.String)`. Por exemplo, variáveis ​​globais e funções definidas antes de chamar `loadUrl(java.lang.String)` não existirão na página carregada. Os aplicativos devem usar a API nativa do Android `addJavascriptInterface(Object, String)` para persistir objetos JavaScript nas navegações.
 
 #### O método `injectJavaScript`
 

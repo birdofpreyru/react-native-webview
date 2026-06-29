@@ -1,8 +1,8 @@
-import WebView from './WebView';
+import WebViewDefault from './WebView';
 
 export type { WebViewProps } from './WebView';
 
-export type { FileDownload } from './WebViewTypes';
+export type { FileDownload, WebViewRef } from './WebViewTypes';
 
-export { WebView };
-export default WebView;
+export { WebViewDefault as WebView };
+export default WebViewDefault;

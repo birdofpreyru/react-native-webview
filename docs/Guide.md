@@ -83,9 +83,7 @@ import { WebView } from 'react-native-webview';
 
 class MyWeb extends Component {
   render() {
-    return (
-      <WebView source={{ uri: 'file:///android_asset/local-site.html' }} />
-    );
+    return <WebView source={{ uri: 'file:///android_asset/local-site.html' }} />;
   }
 }
 ```
@@ -181,24 +179,14 @@ Video recording:
 
 ##### Android
 
-Add permission in AndroidManifest.xml:
-
-```xml
-<manifest ...>
-  ......
-
-  <!-- this is required only for Android 4.1-5.1 (api 16-22)  -->
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-  ......
-</manifest>
-```
+File uploads do not require storage permissions on supported Android versions.
 
 ###### Camera option availability in uploading for Android
 
 If the file input indicates that images or video is desired with [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept), then the WebView will attempt to provide options to the user to use their camera to take a picture or video.
 
 Additionally, if the user- or environment-facing camera is specified with the [`capture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#capture) attribute, the following must be added to the AndroidManifest.xml file for the camera to function consistently on some Android versions and devices:
+
 ```xml
 <queries>
     <intent>
@@ -211,19 +199,18 @@ Normally, apps that do not have permission to use the camera can prompt the user
 
 ##### Check for File Upload support, with `static isFileUploadSupported()`
 
-File Upload using `<input type="file" />` is not supported for Android 4.4 KitKat (see [details](https://github.com/delight-im/Android-AdvancedWebView/issues/4#issuecomment-70372146)):
+File Upload using `<input type="file" />` is supported on Android:
 
 ```jsx
-import { WebView } from "react-native-webview";
+import { WebView } from 'react-native-webview';
 
-WebView.isFileUploadSupported().then(res => {
+WebView.isFileUploadSupported().then((res) => {
   if (res === true) {
     // file upload is supported
   } else {
     // not file upload support
   }
 });
-
 ```
 
 ##### MacOS
@@ -381,8 +368,7 @@ By setting `injectedJavaScriptBeforeContentLoadedForMainFrameOnly: false`, the J
 
 > On iOS, ~~`injectedJavaScriptBeforeContentLoaded` runs a method on WebView called `evaluateJavaScript:completionHandler:`~~ – this is no longer true as of version `8.2.0`. Instead, we use a `WKUserScript` with injection time `WKUserScriptInjectionTimeAtDocumentStart`. As a consequence, `injectedJavaScriptBeforeContentLoaded` no longer returns an evaluation value nor logs a warning to the console. In the unlikely event that your app depended upon this behaviour, please see migration steps [here](https://github.com/react-native-webview/react-native-webview/pull/1119#issuecomment-574919464) to retain equivalent behaviour.
 > On Android, `injectedJavaScript` runs a method on the Android WebView called `evaluateJavascriptWithFallback`
-> Note on Android Compatibility: For applications targeting `Build.VERSION_CODES.N` or later, JavaScript state from an empty WebView is no longer persisted across navigations like `loadUrl(java.lang.String)`. For example, global variables and functions defined before calling `loadUrl(java.lang.String)` will not exist in the loaded page. Applications should use the Android Native API `addJavascriptInterface(Object, String)` instead to persist JavaScript objects across navigations.
-
+> Note on Android Compatibility: JavaScript state from an empty WebView is not persisted across navigations like `loadUrl(java.lang.String)`. For example, global variables and functions defined before calling `loadUrl(java.lang.String)` will not exist in the loaded page. Applications should use the Android Native API `addJavascriptInterface(Object, String)` instead to persist JavaScript objects across navigations.
 
 #### The `injectedJavaScriptObject` prop
 
@@ -394,9 +380,11 @@ Due to the Android race condition mentioned above, this more reliable prop was a
     <script>
       window.onload = (event) => {
         if (window.ReactNativeWebView.injectedObjectJson()) {
-          document.getElementById('output').innerHTML = JSON.parse(window.ReactNativeWebView.injectedObjectJson()).customValue;
+          document.getElementById('output').innerHTML = JSON.parse(
+            window.ReactNativeWebView.injectedObjectJson(),
+          ).customValue;
         }
-      }
+      };
     </script>
   </head>
   <body>
@@ -418,7 +406,7 @@ export default class App extends Component {
       <View style={{ flex: 1 }}>
         <WebView
           source={{
-            html: HTML
+            html: HTML,
           }}
           injectedJavaScriptObject={{ customValue: 'myCustomValue' }}
         />
@@ -607,6 +595,7 @@ const App = () => {
 Note that these cookies will only be sent on the first request unless you use the technique above for [setting custom headers on each page load](#Setting-Custom-Headers).
 
 ### Page navigation gesture and button support
+
 We can provide support for conventional mobile page navigation: forward/back swipe gestures on iOS and the hardware back button/gesture on Android.
 
 For iOS, you'll just need to use the [`allowsbackforwardnavigationgestures`](Reference.md#allowsbackforwardnavigationgestures) prop.
@@ -614,17 +603,10 @@ For iOS, you'll just need to use the [`allowsbackforwardnavigationgestures`](Ref
 For Android, you need to use `BackHandler.addEventListener` and hook that up to call `goBack` on the `WebView`.
 
 With functional React components, you can use `useRef` and `useEffect` (you'll need to import them from React if you aren't already) to allow users to navigate to the previous page when they press the back button like so:
+
 ```jsx
-import React, {
-    useCallback,
-    useEffect,
-    useState,
-    useRef,
-} from 'react';
-import {
-    BackHandler,
-    Platform,
-} from 'react-native';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { BackHandler, Platform } from 'react-native';
 ```
 
 ```jsx
@@ -649,10 +631,11 @@ useEffect(() => {
 ```
 
 And add these prop to your `WebView` component:
+
 ```jsx
 <WebView
   ref={webViewRef}
-  onLoadProgress={event => {
+  onLoadProgress={(event) => {
     setCanGoBack(event.nativeEvent.canGoBack);
   }}
 />

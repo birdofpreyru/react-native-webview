@@ -1,4 +1,10 @@
-import { type ReactElement, Component, type ComponentProps } from 'react';
+import {
+  Component,
+  type ComponentProps,
+  type ReactElement,
+  type Ref,
+} from 'react';
+
 import type {
   NativeSyntheticEvent,
   ViewProps,
@@ -55,6 +61,7 @@ interface ErrorState extends BaseState {
 
 export type State = NormalState | ErrorState;
 
+// oxlint-disable-next-line @typescript-eslint/no-explicit-any
 type Constructor<T> = new (...args: any[]) => T;
 
 export declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> {}
@@ -88,13 +95,7 @@ export interface WebViewNativeProgressEvent extends WebViewNativeEvent {
 }
 
 export interface WebViewNavigation extends WebViewNativeEvent {
-  navigationType:
-    | 'click'
-    | 'formsubmit'
-    | 'backforward'
-    | 'reload'
-    | 'formresubmit'
-    | 'other';
+  navigationType: 'click' | 'formsubmit' | 'backforward' | 'reload' | 'formresubmit' | 'other';
   mainDocumentURL?: string;
 }
 
@@ -136,13 +137,11 @@ export interface WebViewOpenWindow {
 
 export type WebViewEvent = NativeSyntheticEvent<WebViewNativeEvent>;
 
-export type WebViewProgressEvent =
-  NativeSyntheticEvent<WebViewNativeProgressEvent>;
+export type WebViewProgressEvent = NativeSyntheticEvent<WebViewNativeProgressEvent>;
 
 export type WebViewNavigationEvent = NativeSyntheticEvent<WebViewNavigation>;
 
-export type ShouldStartLoadRequestEvent =
-  NativeSyntheticEvent<ShouldStartLoadRequest>;
+export type ShouldStartLoadRequestEvent = NativeSyntheticEvent<ShouldStartLoadRequest>;
 
 export type FileDownloadEvent = NativeSyntheticEvent<FileDownload>;
 
@@ -154,8 +153,7 @@ export type WebViewTerminatedEvent = NativeSyntheticEvent<WebViewNativeEvent>;
 
 export type WebViewHttpErrorEvent = NativeSyntheticEvent<WebViewHttpError>;
 
-export type WebViewRenderProcessGoneEvent =
-  NativeSyntheticEvent<WebViewRenderProcessGoneDetail>;
+export type WebViewRenderProcessGoneEvent = NativeSyntheticEvent<WebViewRenderProcessGoneDetail>;
 
 export type WebViewOpenWindowEvent = NativeSyntheticEvent<WebViewOpenWindow>;
 
@@ -200,7 +198,7 @@ export interface WebViewSourceUri {
    * Additional HTTP headers to send with the request.
    * NOTE: On Android, this can only be used with GET requests.
    */
-  headers?: Object;
+  headers?: object;
 
   /**
    * The HTTP body to send with the request. This must be a valid
@@ -263,7 +261,7 @@ export interface WebViewNativeConfig {
    * Set props directly on the native component WebView. Enables custom props which the
    * original WebView doesn't pass through.
    */
-  props?: Object;
+  props?: object;
   /**
    * Set the ViewManager to use for communication with the native side.
    * @platform ios, macos
@@ -271,9 +269,7 @@ export interface WebViewNativeConfig {
   viewManager?: ViewManager;
 }
 
-export type OnShouldStartLoadWithRequest = (
-  event: ShouldStartLoadRequest
-) => boolean;
+export type OnShouldStartLoadWithRequest = (event: ShouldStartLoadRequest) => boolean;
 
 export interface BasicAuthCredential {
   /**
@@ -309,8 +305,7 @@ export interface CommonNativeWebViewProps extends ViewProps {
   showsHorizontalScrollIndicator?: boolean;
   showsVerticalScrollIndicator?: boolean;
   paymentRequestEnabled?: boolean;
-  // TODO: find a better way to type this.
-
+  // oxlint-disable-next-line @typescript-eslint/no-explicit-any
   source: any;
   userAgent?: string;
   /**
@@ -526,6 +521,19 @@ export interface IOSWebViewProps extends WebViewSharedProps {
    * backward compatible.
    */
   hideKeyboardAccessoryView?: boolean;
+  /**
+   * If `true`, removes the keyboard notification observers (`UIKeyboardWillShow`,
+   * `UIKeyboardWillHide`, `UIKeyboardWillChangeFrame`) that `WKWebView` registers
+   * internally. Useful when the keyboard is managed by surrounding native code
+   * and the WebView's automatic scroll/inset adjustments interfere with it.
+   *
+   * Defaults to `false`. The value is read once when the WebView mounts and
+   * cannot be toggled afterwards — `WKWebView` registers these observers via
+   * private internal selectors, so once removed they cannot be re-registered.
+   * Remount the WebView to apply a new value.
+   * @platform ios
+   */
+  removeIosKeyboardObserver?: boolean;
   /**
    * A Boolean value indicating whether horizontal swipe gestures will trigger
    * back-forward list navigations.
@@ -1050,9 +1058,8 @@ export interface AndroidWebViewProps extends WebViewSharedProps {
   androidLayerType?: AndroidLayerType;
 
   /**
-   * Boolean value to enable third party cookies in the `WebView`. Used on
-   * Android Lollipop and above only as third party cookies are enabled by
-   * default on Android Kitkat and below and on iOS. The default value is `true`.
+   * Boolean value to enable third party cookies in the `WebView`.
+   * The default value is `true`.
    * @platform android
    */
   thirdPartyCookiesEnabled?: boolean;
@@ -1170,6 +1177,19 @@ export interface AndroidWebViewProps extends WebViewSharedProps {
   onLoadSubResourceError?: (event: WebViewErrorEvent) => void;
 }
 
+export type WebViewRef = {
+  goForward: () => void;
+  goBack: () => void;
+  reload: () => void;
+  stopLoading: () => void
+  postMessage: (data: string) => void;
+  injectJavaScript: (data: string) => void;
+  requestFocus: () => void;
+  clearFormData: () => void;
+  clearCache: (includeDiskFiles: boolean) => void;
+  clearHistory: () => void;
+};
+
 export interface WebViewSharedProps extends ViewProps {
   /**
    * Loads static html or a uri (with optional headers) in the WebView.
@@ -1194,13 +1214,15 @@ export interface WebViewSharedProps extends ViewProps {
    */
   containerStyle?: StyleProp<ViewStyle>;
 
+  ref?: Ref<WebViewRef>;
+
   /**
    * Function that returns a view to show if there's an error.
    */
   renderError?: (
     errorDomain: string | undefined,
     errorCode: number,
-    errorDesc: string
+    errorDesc: string,
   ) => ReactElement; // view to show if there's an error
 
   /**
@@ -1235,7 +1257,7 @@ export interface WebViewSharedProps extends ViewProps {
 
   /**
    * Function that is invoked when the `WebView` receives an error status code.
-   * Works on iOS and Android (minimum API level 23).
+   * Works on iOS and Android.
    */
   onHttpError?: (event: WebViewHttpErrorEvent) => void;
 

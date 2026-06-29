@@ -11,7 +11,7 @@
     "Thibault Malbranche <malbranche.thibault@gmail.com>"
   ],
   "license": "MIT",
-  "version": "13.17.4",
+  "version": "14.0.1",
   "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "scripts": {
     "android": "react-native run-android",
@@ -27,13 +27,8 @@
     "build": "babel --extensions \".ts,.tsx\" --out-dir lib src",
     "prepare:types": "tsc --emitDeclarationOnly --declaration --rootDir src --outDir lib --project tsconfig.build.json",
     "prepare": "yarn prepare:types && yarn build",
-    "appium": "appium",
     "test:windows": "yarn jest --setupFiles=./jest-setups/jest.setup.js",
     "add:macos": "yarn add react-native-macos@0.73.17"
-  },
-  "rn-docs": {
-    "title": "Webview",
-    "type": "Component"
   },
   "peerDependencies": {
     "react": "*",
@@ -57,14 +52,13 @@
     "@types/jest": "^30.0.0",
     "@types/react": "19.2.17",
     "@types/selenium-webdriver": "4.35.6",
-    "appium": "1.22.3",
     "eslint": "8.57.1",
     "eslint-plugin-ft-flow": "^3.0.11",
     "jest": "^30.4.2",
     "react": "19.2.3",
     "react-native": "0.86.0",
     "react-native-builder-bob": "^0.42.1",
-    "react-native-macos": "0.81.7",
+    "react-native-macos": "0.81.8",
     "react-native-test-app": "5.4.1",
     "react-native-windows": "0.84.0",
     "selenium-appium": "1.0.2",

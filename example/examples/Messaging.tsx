@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { type FunctionComponent, useRef } from 'react';
 import { View, Alert, TextInput } from 'react-native';
 
-import WebView from '@dr.pogodin/react-native-webview';
+import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
 const HTML = `<!DOCTYPE html>\n
 <html>
@@ -42,39 +42,31 @@ const HTML = `<!DOCTYPE html>\n
 </html>`;
 
 type Props = {};
-type State = {};
 
-export default class Messaging extends Component<Props, State> {
-  state = {};
+const Messaging: FunctionComponent<Props> = () => {
+  const webView = useRef<WebViewRef>(null);
 
-  webView: React.RefObject<typeof WebView | null>;
-
-  constructor(props: Props) {
-    super(props);
-    this.webView = React.createRef();
-  }
-
-  render() {
-    return (
-      <View style={{ height: 120 }}>
-        <TextInput
-          onSubmitEditing={(e) => {
-            (this.webView.current as any).postMessage(e.nativeEvent.text);
-          }}
-        />
-        <WebView
-          // @ts-ignore Because typing in the library is wrong.
-          ref={this.webView}
-          source={{ html: HTML }}
-          onLoadEnd={() => {
-            (this.webView.current as any).postMessage('Hello from RN');
-          }}
-          automaticallyAdjustContentInsets={false}
-          onMessage={(e: { nativeEvent: { data?: string } }) => {
-            Alert.alert('Message received from JS: ', e.nativeEvent.data);
-          }}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={{ height: 120 }}>
+      <TextInput
+        onSubmitEditing={(e) => {
+          webView.current!.postMessage(e.nativeEvent.text);
+        }}
+      />
+      <WebView
+        // @ts-ignore Because typing in the library is wrong.
+        ref={webView}
+        source={{ html: HTML }}
+        onLoadEnd={() => {
+          webView.current!.postMessage('Hello from RN');
+        }}
+        automaticallyAdjustContentInsets={false}
+        onMessage={(e: { nativeEvent: { data?: string } }) => {
+          Alert.alert('Message received from JS: ', e.nativeEvent.data);
+        }}
+      />
+    </View>
+  );
 }
+
+export default Messaging;

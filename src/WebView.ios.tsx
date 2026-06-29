@@ -36,9 +36,9 @@ import type {
 
 import styles from './WebView.styles';
 
-const { resolveAssetSource } = Image;
+const resolveAssetSource = (source: ImageSourcePropType) => Image.resolveAssetSource(source);
 const processDecelerationRate = (
-  decelerationRate: DecelerationRateConstant | number | undefined
+  decelerationRate: DecelerationRateConstant | number | undefined,
 ) => {
   let newDecelerationRate = decelerationRate;
   if (newDecelerationRate === 'normal') {
@@ -52,14 +52,12 @@ const processDecelerationRate = (
 const useWarnIfChanges = <T extends unknown>(value: T, name: string) => {
   const ref = useRef(value);
   if (ref.current !== value) {
-    console.warn(
-      `Changes to property ${name} do nothing after the initial render.`
-    );
+    console.warn(`Changes to property ${name} do nothing after the initial render.`);
     ref.current = value;
   }
 };
 
-const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
+const WebViewComponent = forwardRef<unknown, IOSWebViewProps>(
   (
     {
       fraudulentWebsiteWarningEnabled = true,
@@ -99,22 +97,18 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
       incognito,
       decelerationRate: decelerationRateProp,
       onShouldStartLoadWithRequest: onShouldStartLoadWithRequestProp,
+      removeIosKeyboardObserver,
       ...otherProps
     },
-    ref
+    ref,
   ) => {
-    const webViewRef = useRef<React.ComponentRef<
-      HostComponent<NativeProps>
-    > | null>(null);
+    const webViewRef = useRef<React.ComponentRef<HostComponent<NativeProps>> | null>(null);
 
     const onShouldStartLoadWithRequestCallback = useCallback(
       (shouldStart: boolean, _url: string, lockIdentifier = 0) => {
-        RNCWebViewModule.shouldStartLoadWithLockIdentifier(
-          shouldStart,
-          lockIdentifier
-        );
+        RNCWebViewModule.shouldStartLoadWithLockIdentifier(shouldStart, lockIdentifier);
       },
-      []
+      [],
     );
 
     const {
@@ -150,8 +144,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
     useImperativeHandle(
       ref,
       () => ({
-        goForward: () =>
-          webViewRef.current && Commands.goForward(webViewRef.current),
+        goForward: () => webViewRef.current && Commands.goForward(webViewRef.current),
         goBack: () => webViewRef.current && Commands.goBack(webViewRef.current),
         reload: () => {
           setViewState('LOADING');
@@ -159,53 +152,36 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
             Commands.reload(webViewRef.current);
           }
         },
-        stopLoading: () =>
-          webViewRef.current && Commands.stopLoading(webViewRef.current),
+        stopLoading: () => webViewRef.current && Commands.stopLoading(webViewRef.current),
         postMessage: (data: string) =>
           webViewRef.current && Commands.postMessage(webViewRef.current, data),
         injectJavaScript: (data: string) =>
-          webViewRef.current &&
-          Commands.injectJavaScript(webViewRef.current, data),
-        requestFocus: () =>
-          webViewRef.current && Commands.requestFocus(webViewRef.current),
+          webViewRef.current && Commands.injectJavaScript(webViewRef.current, data),
+        requestFocus: () => webViewRef.current && Commands.requestFocus(webViewRef.current),
         clearCache: (includeDiskFiles: boolean) =>
-          webViewRef.current &&
-          Commands.clearCache(webViewRef.current, includeDiskFiles),
+          webViewRef.current && Commands.clearCache(webViewRef.current, includeDiskFiles),
       }),
-      [setViewState, webViewRef]
+      [setViewState, webViewRef],
     );
 
     useWarnIfChanges(allowsInlineMediaPlayback, 'allowsInlineMediaPlayback');
-    useWarnIfChanges(
-      allowsPictureInPictureMediaPlayback,
-      'allowsPictureInPictureMediaPlayback'
-    );
-    useWarnIfChanges(
-      allowsAirPlayForMediaPlayback,
-      'allowsAirPlayForMediaPlayback'
-    );
+    useWarnIfChanges(allowsPictureInPictureMediaPlayback, 'allowsPictureInPictureMediaPlayback');
+    useWarnIfChanges(allowsAirPlayForMediaPlayback, 'allowsAirPlayForMediaPlayback');
     useWarnIfChanges(incognito, 'incognito');
-    useWarnIfChanges(
-      mediaPlaybackRequiresUserAction,
-      'mediaPlaybackRequiresUserAction'
-    );
+    useWarnIfChanges(mediaPlaybackRequiresUserAction, 'mediaPlaybackRequiresUserAction');
     useWarnIfChanges(dataDetectorTypes, 'dataDetectorTypes');
+    useWarnIfChanges(removeIosKeyboardObserver, 'removeIosKeyboardObserver');
 
     let otherView = null;
     if (viewState === 'LOADING') {
       otherView = (renderLoading || defaultRenderLoading)();
     } else if (viewState === 'ERROR') {
-      invariant(
-        lastErrorEvent != null,
-        'lastErrorEvent expected to be non-null'
-      );
+      invariant(lastErrorEvent != null, 'lastErrorEvent expected to be non-null');
       otherView = (renderError || defaultRenderError)(
         lastErrorEvent?.domain,
         lastErrorEvent?.code ?? 0,
-        lastErrorEvent?.description ?? ''
+        lastErrorEvent?.description ?? '',
       );
-    } else if (viewState !== 'IDLE') {
-      console.error(`RNCWebView invalid state encountered: ${viewState}`);
     }
 
     const webViewStyles = [styles.container, styles.webView, style];
@@ -213,9 +189,10 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
 
     const decelerationRate = processDecelerationRate(decelerationRateProp);
 
-    const NativeWebView =
-      (nativeConfig?.component as typeof RNCWebView | undefined) || RNCWebView;
+    // oxlint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    const NativeWebView = (nativeConfig?.component as typeof RNCWebView | undefined) || RNCWebView;
 
+    // oxlint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const sourceResolved = resolveAssetSource(source as ImageSourcePropType);
     const newSource =
       typeof sourceResolved === 'object'
@@ -224,9 +201,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
               return {
                 ...prev,
                 [currKey]:
-                  currKey === 'headers' &&
-                  currValue &&
-                  typeof currValue === 'object'
+                  currKey === 'headers' && currValue && typeof currValue === 'object'
                     ? Object.entries(currValue).map(([key, value]) => {
                         return {
                           name: key,
@@ -236,7 +211,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
                     : currValue,
               };
             },
-            {}
+            {},
           )
         : sourceResolved;
 
@@ -264,9 +239,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
         onContentProcessDidTerminate={onContentProcessDidTerminate}
         injectedJavaScript={injectedJavaScript}
-        injectedJavaScriptBeforeContentLoaded={
-          injectedJavaScriptBeforeContentLoaded
-        }
+        injectedJavaScriptBeforeContentLoaded={injectedJavaScriptBeforeContentLoaded}
         injectedJavaScriptForMainFrameOnly={injectedJavaScriptForMainFrameOnly}
         injectedJavaScriptBeforeContentLoadedForMainFrameOnly={
           injectedJavaScriptBeforeContentLoadedForMainFrameOnly
@@ -279,11 +252,10 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
         }
         allowsAirPlayForMediaPlayback={allowsAirPlayForMediaPlayback}
         allowsInlineMediaPlayback={allowsInlineMediaPlayback}
-        allowsPictureInPictureMediaPlayback={
-          allowsPictureInPictureMediaPlayback
-        }
+        allowsPictureInPictureMediaPlayback={allowsPictureInPictureMediaPlayback}
         incognito={incognito}
         mediaPlaybackRequiresUserAction={mediaPlaybackRequiresUserAction}
+        removeIosKeyboardObserver={removeIosKeyboardObserver}
         newSource={newSource}
         style={webViewStyles}
         hasOnFileDownload={!!onFileDownload}
@@ -300,7 +272,7 @@ const WebViewComponent = forwardRef<{}, IOSWebViewProps>(
         {otherView}
       </View>
     );
-  }
+  },
 );
 
 // no native implementation for iOS, depends only on permissions

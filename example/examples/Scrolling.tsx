@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { type FunctionComponent, useState } from 'react';
 import { Button, Text, View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -29,44 +29,32 @@ const HTML = `
 </html>
 `;
 
-type Props = {};
-type State = {
-  scrollEnabled: boolean;
-  lastScrollEvent: string;
-};
+const Scrolling: FunctionComponent = () => {
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [lastScrollEvent, setLastScrollEvent] = useState('');
 
-export default class Scrolling extends Component<Props, State> {
-  state = {
-    scrollEnabled: true,
-    lastScrollEvent: '',
-  };
-
-  render() {
-    return (
-      <View>
-        <View style={{ height: 120 }}>
-          <WebView
-            source={{ html: HTML }}
-            automaticallyAdjustContentInsets={false}
-            onScroll={this._onScroll}
-            scrollEnabled={this.state.scrollEnabled}
-          />
-        </View>
-        <Button
-          title={
-            this.state.scrollEnabled ? 'Scroll enabled' : 'Scroll disabled'
-          }
-          onPress={() =>
-            this.setState({ scrollEnabled: !this.state.scrollEnabled })
-          }
+  return (
+    <View>
+      <View style={{ height: 120 }}>
+        <WebView
+          source={{ html: HTML }}
+          automaticallyAdjustContentInsets={false}
+          onScroll={(event) => {
+            setLastScrollEvent(JSON.stringify(event.nativeEvent));
+          }}
+          scrollEnabled={scrollEnabled}
         />
-        <Text>Last scroll event:</Text>
-        <Text>{this.state.lastScrollEvent}</Text>
       </View>
-    );
-  }
-
-  _onScroll = (event: any) => {
-    this.setState({ lastScrollEvent: JSON.stringify(event.nativeEvent) });
-  };
+      <Button
+        title={scrollEnabled ? 'Scroll enabled' : 'Scroll disabled'}
+        onPress={() => {
+          setScrollEnabled(!scrollEnabled);
+        }}
+      />
+      <Text>Last scroll event:</Text>
+      <Text>{lastScrollEvent}</Text>
+    </View>
+  );
 }
+
+export default Scrolling;

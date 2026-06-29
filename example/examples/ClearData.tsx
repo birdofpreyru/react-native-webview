@@ -36,7 +36,10 @@ export default class ClearData extends Component<Props, State> {
           title="Clear cache (no diskFiles)"
           onPress={() => this.clearCacheAndReload(false)}
         />
-        <Button title="Reload" onPress={this.reload} />
+        <Button
+          title="Reload"
+          onPress={this.reload}
+        />
         <WebView
           // @ts-ignore
           ref={this.webView}

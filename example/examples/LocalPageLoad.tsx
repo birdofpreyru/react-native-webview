@@ -1,9 +1,9 @@
-import React from 'react';
+import type { FunctionComponent } from 'react';
 import { View } from 'react-native';
 import WebView from '@dr.pogodin/react-native-webview';
 const localHtmlFile = require('../assets/test.html');
 
-const LocalPageLoad: React.FunctionComponent = () => (
+const LocalPageLoad: FunctionComponent = () => (
   <View>
     <View style={{ width: '100%', height: '100%' }}>
       <WebView source={localHtmlFile} />
