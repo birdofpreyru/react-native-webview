@@ -1,5 +1,5 @@
-import { type FunctionComponent, useRef } from 'react';
-import { View, Alert, TextInput } from 'react-native';
+import { useRef, useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
 
 import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
@@ -41,32 +41,36 @@ const HTML = `<!DOCTYPE html>\n
   </body>
 </html>`;
 
-type Props = {};
-
-const Messaging: FunctionComponent<Props> = () => {
-  const webView = useRef<WebViewRef>(null);
+export default function Messaging() {
+  const webView = useRef<WebView | null>(null);
+  // Displayed inline because the RNW alert module is not supported in
+  // Win32/WinAppSDK composition apps.
+  const [lastMessage, setLastMessage] = useState('');
 
   return (
     <View style={{ height: 120 }}>
+      {lastMessage ? (
+        <Text style={{ padding: 4, backgroundColor: '#eee' }}>Message from JS: {lastMessage}</Text>
+      ) : null}
       <TextInput
+        placeholder="Type a message and press Enter"
         onSubmitEditing={(e) => {
-          webView.current!.postMessage(e.nativeEvent.text);
+          webView.current?.postMessage(e.nativeEvent.text);
         }}
       />
       <WebView
         ref={webView}
         source={{ html: HTML }}
         onLoadEnd={() => {
-          webView.current!.postMessage('Hello from RN');
+          webView.current?.postMessage('Hello from RN');
         }}
         automaticallyAdjustContentInsets={false}
         onMessage={(e: { nativeEvent: { data?: string } }) => {
-          Alert.alert('Message received from JS: ', e.nativeEvent.data);
+          console.log('Message received from JS: ', e.nativeEvent.data);
+          setLastMessage(e.nativeEvent.data || '');
         }}
         useWebView2
       />
     </View>
   );
-};
-
-export default Messaging;
+}

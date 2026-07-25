@@ -1,52 +1,39 @@
-import { Component, createRef } from 'react';
+import { useRef } from 'react';
 import { View, Button } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
 
-type Props = {};
-type State = {};
+export default function ClearData() {
+  const webView = useRef<typeof WebView | null>(null);
 
-export default class ClearData extends Component<Props, State> {
-  state = {};
-
-  webView: React.RefObject<typeof WebView | null>;
-
-  constructor(props: Props) {
-    super(props);
-    this.webView = createRef();
-  }
-
-  clearCacheAndReload = (includeDiskFiles: boolean) => {
-    (this.webView.current as any).clearCache(includeDiskFiles);
-    (this.webView.current as any).reload();
+  const clearCacheAndReload = (includeDiskFiles: boolean) => {
+    webView.current?.clearCache(includeDiskFiles);
+    webView.current?.reload();
   };
 
-  reload = () => {
-    (this.webView.current as any).reload();
+  const reload = () => {
+    webView.current?.reload();
   };
 
-  render() {
-    return (
-      <View style={{ height: 1000 }}>
-        <Button
-          title="Clear cache (diskFiles)"
-          onPress={() => this.clearCacheAndReload(true)}
-        />
-        <Button
-          title="Clear cache (no diskFiles)"
-          onPress={() => this.clearCacheAndReload(false)}
-        />
-        <Button
-          title="Reload"
-          onPress={this.reload}
-        />
-        <WebView
-          // @ts-ignore
-          ref={this.webView}
-          source={{ uri: 'https://www.theguardian.com/international' }}
-          incognito={false}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={{ height: 1000 }}>
+      <Button
+        title="Clear cache (diskFiles)"
+        onPress={() => clearCacheAndReload(true)}
+      />
+      <Button
+        title="Clear cache (no diskFiles)"
+        onPress={() => clearCacheAndReload(false)}
+      />
+      <Button
+        title="Reload"
+        onPress={reload}
+      />
+      <WebView
+        ref={webView}
+        source={{ uri: 'https://www.theguardian.com/international' }}
+        incognito={false}
+      />
+    </View>
+  );
 }

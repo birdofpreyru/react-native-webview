@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { Alert, Platform, View } from 'react-native';
 
 import WebView, { type FileDownload } from '@dr.pogodin/react-native-webview';
@@ -27,31 +26,22 @@ const HTML = `
 </html>
 `;
 
-interface Props {}
-interface State {}
-
-export default class Downloads extends Component<Props, State> {
-  state = {};
-
-  onFileDownload = ({ nativeEvent }: { nativeEvent: FileDownload }) => {
-    Alert.alert('File download detected', nativeEvent.downloadUrl);
-  };
-
-  render() {
-    const platformProps = Platform.select({
-      ios: {
-        onFileDownload: this.onFileDownload,
+export default function Downloads() {
+  const platformProps = Platform.select({
+    ios: {
+      onFileDownload: ({ nativeEvent }: { nativeEvent: FileDownload }) => {
+        Alert.alert('File download detected', nativeEvent.downloadUrl);
       },
-    });
+    },
+  });
 
-    return (
-      <View style={{ height: 120 }}>
-        <WebView
-          source={{ html: HTML }}
-          automaticallyAdjustContentInsets={false}
-          {...platformProps}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={{ height: 120 }}>
+      <WebView
+        source={{ html: HTML }}
+        automaticallyAdjustContentInsets={false}
+        {...platformProps}
+      />
+    </View>
+  );
 }

@@ -1,4 +1,4 @@
-import { type FunctionComponent, useRef } from 'react';
+import { useRef } from 'react';
 import { View, Alert, TextInput } from 'react-native';
 
 import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
@@ -41,24 +41,21 @@ const HTML = `<!DOCTYPE html>\n
   </body>
 </html>`;
 
-type Props = {};
-
-const Messaging: FunctionComponent<Props> = () => {
-  const webView = useRef<WebViewRef>(null);
+export default function Messaging() {
+  const webView = useRef<WebView | null>(null);
 
   return (
     <View style={{ height: 120 }}>
       <TextInput
         onSubmitEditing={(e) => {
-          webView.current!.postMessage(e.nativeEvent.text);
+          webView.current?.postMessage(e.nativeEvent.text);
         }}
       />
       <WebView
-        // @ts-ignore Because typing in the library is wrong.
         ref={webView}
         source={{ html: HTML }}
         onLoadEnd={() => {
-          webView.current!.postMessage('Hello from RN');
+          webView.current?.postMessage('Hello from RN');
         }}
         automaticallyAdjustContentInsets={false}
         onMessage={(e: { nativeEvent: { data?: string } }) => {
@@ -68,5 +65,3 @@ const Messaging: FunctionComponent<Props> = () => {
     </View>
   );
 }
-
-export default Messaging;

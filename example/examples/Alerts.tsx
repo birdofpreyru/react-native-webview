@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -53,20 +52,13 @@ const HTML = `
 </html>
 `;
 
-type Props = {};
-type State = {};
-
-export default class Alerts extends Component<Props, State> {
-  state = {};
-
-  render() {
-    return (
-      <View style={{ height: 120 }}>
-        <WebView
-          source={{ html: HTML }}
-          automaticallyAdjustContentInsets={false}
-        />
-      </View>
-    );
-  }
+export default function Alerts() {
+  return (
+    <View style={{ height: 120 }}>
+      <WebView
+        source={{ html: HTML }}
+        automaticallyAdjustContentInsets={false}
+      />
+    </View>
+  );
 }

@@ -10,10 +10,7 @@ import {
   Platform,
 } from 'react-native';
 
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Alerts from './examples/Alerts';
 import Scrolling from './examples/Scrolling';
@@ -197,33 +194,72 @@ const TESTS = {
   },
 } satisfies Record<string, TestT>;
 
-const AppContent: FunctionComponent = () => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  exampleContainer: {
+    padding: 16,
+    backgroundColor: '#FFF',
+    borderColor: '#EEE',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    flex: 1,
+  },
+  exampleTitle: {
+    fontSize: 18,
+  },
+  exampleDescription: {
+    color: '#333333',
+    marginBottom: 16,
+  },
+  exampleInnerContainer: {
+    borderColor: '#EEE',
+    borderTopWidth: 1,
+    paddingTop: 10,
+    flex: 1,
+  },
+  restartButton: {
+    padding: 6,
+    fontSize: 16,
+    borderRadius: 5,
+    backgroundColor: '#F3F3F3',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+  },
+  closeKeyboardView: {
+    width: 5,
+    height: 5,
+  },
+  testPickerContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+});
+
+const App: FunctionComponent = () => {
   const [restarting, setRestarting] = useState<boolean>(false);
   const [currentTest, setCurrentTest] = useState<TestT>(TESTS.Alerts);
 
   const simulateRestart = () => {
     setRestarting(true);
-    setTimeout(() => {
-      setRestarting(false);
-    }, 100);
+    requestAnimationFrame(() => setRestarting(false));
   };
 
   const changeTest = (testName: keyof typeof TESTS) => {
     setCurrentTest(TESTS[testName]);
   };
 
-  const safeAreaInsets = useSafeAreaInsets();
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity
+        style={styles.closeKeyboardView}
+        onPress={() => Keyboard.dismiss()}
+        testID="closeKeyboard"
+      />
 
-return (
-    <View
-      style={{
-        ...styles.container,
-        paddingBottom: safeAreaInsets.bottom,
-        paddingLeft: safeAreaInsets.left,
-        paddingRight: safeAreaInsets.right,
-        paddingTop: safeAreaInsets.top,
-      }}
-    >
       <TouchableOpacity
         style={styles.closeKeyboardView}
         onPress={() => Keyboard.dismiss()}
@@ -358,59 +394,8 @@ return (
           </View>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
-const App: FunctionComponent = () => (
-  <SafeAreaProvider>
-    <AppContent />
-  </SafeAreaProvider>
-);
-
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-  exampleContainer: {
-    padding: 16,
-    backgroundColor: '#FFF',
-    borderColor: '#EEE',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    flex: 1,
-  },
-  exampleTitle: {
-    fontSize: 18,
-  },
-  exampleDescription: {
-    color: '#333333',
-    marginBottom: 16,
-  },
-  exampleInnerContainer: {
-    borderColor: '#EEE',
-    borderTopWidth: 1,
-    paddingTop: 10,
-    flex: 1,
-  },
-  restartButton: {
-    padding: 6,
-    fontSize: 16,
-    borderRadius: 5,
-    backgroundColor: '#F3F3F3',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
-  },
-  closeKeyboardView: {
-    width: 5,
-    height: 5,
-  },
-  testPickerContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-});

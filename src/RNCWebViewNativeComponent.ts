@@ -158,7 +158,7 @@ export interface NativeProps extends ViewProps {
   forceDarkOn?: boolean;
   geolocationEnabled?: boolean;
   lackPermissionToDownloadMessage?: string;
-  messagingModuleName: string;
+  messagingModuleName?: string;
   minimumFontSize?: CodegenTypes.Int32;
   mixedContentMode?: CodegenTypes.WithDefault<'never' | 'always' | 'compatibility', 'never'>;
   nestedScrollEnabled?: boolean;
@@ -184,6 +184,7 @@ export interface NativeProps extends ViewProps {
   allowsAirPlayForMediaPlayback?: boolean;
   allowsLinkPreview?: CodegenTypes.WithDefault<boolean, true>;
   automaticallyAdjustContentInsets?: CodegenTypes.WithDefault<boolean, true>;
+  automaticallyAdjustsScrollIndicatorInsets?: CodegenTypes.WithDefault<boolean, false>;
   autoManageStatusBarEnabled?: CodegenTypes.WithDefault<boolean, true>;
   bounces?: CodegenTypes.WithDefault<boolean, true>;
   contentInset?: Readonly<{

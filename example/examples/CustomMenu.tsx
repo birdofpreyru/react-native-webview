@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -51,13 +51,19 @@ const HTML = `
 </html>
 `;
 
-// interface Props {}
-// interface State {}
+type CustomMenuSelection = {
+  key?: string;
+  label?: string;
+  selectedText?: string;
+};
 
-// export default class CustomMenu extends Component<Props, State> {
-const CustomMenu = () => {
-  const [selectionInfo, setSelectionInfo] = useState<any>(null);
-  const webviewRef = useRef(null);
+type CustomMenuSelectionEvent = {
+  nativeEvent: CustomMenuSelection;
+};
+
+export default function CustomMenu() {
+  const [selectionInfo, setSelectionInfo] = useState<CustomMenuSelection | null>(null);
+  const webviewRef = useRef<WebView | null>(null);
 
   return (
     <View>
@@ -77,9 +83,9 @@ const CustomMenu = () => {
               key: 'strikethrough',
             },
           ]}
-          onCustomMenuSelection={(webViewEvent) => {
-            // const { label, key, selectedText } = webViewEvent.nativeEvent;
-            setSelectionInfo(webViewEvent.nativeEvent as any);
+          onCustomMenuSelection={(webViewEvent: CustomMenuSelectionEvent) => {
+            const { label, key, selectedText } = webViewEvent.nativeEvent;
+            setSelectionInfo(webViewEvent.nativeEvent);
             // clearing the selection by sending a message. This would need a script on the source page to listen to the message.
             (webviewRef.current as any).postMessage(
               JSON.stringify({ what: 'clearSelection' })
@@ -96,6 +102,4 @@ const CustomMenu = () => {
       )}
     </View>
   );
-};
-
-export default CustomMenu;
+}

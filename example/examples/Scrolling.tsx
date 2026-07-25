@@ -1,4 +1,4 @@
-import { type FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import { Button, Text, View } from 'react-native';
 
 import WebView from '@dr.pogodin/react-native-webview';
@@ -29,9 +29,15 @@ const HTML = `
 </html>
 `;
 
-const Scrolling: FunctionComponent = () => {
+type ScrollEvent = Parameters<NonNullable<React.ComponentProps<typeof WebView>['onScroll']>>[0];
+
+export default function Scrolling() {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [lastScrollEvent, setLastScrollEvent] = useState('');
+
+  const onScroll = (event: ScrollEvent) => {
+    setLastScrollEvent(JSON.stringify(event.nativeEvent));
+  };
 
   return (
     <View>
@@ -39,22 +45,16 @@ const Scrolling: FunctionComponent = () => {
         <WebView
           source={{ html: HTML }}
           automaticallyAdjustContentInsets={false}
-          onScroll={(event) => {
-            setLastScrollEvent(JSON.stringify(event.nativeEvent));
-          }}
+          onScroll={onScroll}
           scrollEnabled={scrollEnabled}
         />
       </View>
       <Button
         title={scrollEnabled ? 'Scroll enabled' : 'Scroll disabled'}
-        onPress={() => {
-          setScrollEnabled(!scrollEnabled);
-        }}
+        onPress={() => setScrollEnabled((value) => !value)}
       />
       <Text>Last scroll event:</Text>
       <Text>{lastScrollEvent}</Text>
     </View>
   );
 }
-
-export default Scrolling;

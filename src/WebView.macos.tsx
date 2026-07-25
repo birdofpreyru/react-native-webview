@@ -50,6 +50,7 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
       useSharedProcessPool = true,
       injectedJavaScript,
       injectedJavaScriptBeforeContentLoaded,
+      injectedJavaScriptObject,
       startInLoadingState,
       onNavigationStateChange,
       onLoadStart,
@@ -183,6 +184,10 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
       <NativeWebView
         key="webViewKey"
         {...otherProps}
+        // decelerationRate is iOS-only but may arrive through untyped props;
+        // the codegen spec types it as a Double, so forwarding the "normal" /
+        // "fast" string shortcuts would throw during Fabric prop conversion.
+        decelerationRate={undefined}
         javaScriptEnabled={javaScriptEnabled}
         cacheEnabled={cacheEnabled}
         useSharedProcessPool={useSharedProcessPool}
@@ -198,14 +203,13 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
         onContentProcessDidTerminate={onContentProcessDidTerminate}
         injectedJavaScript={injectedJavaScript}
         injectedJavaScriptBeforeContentLoaded={injectedJavaScriptBeforeContentLoaded}
+        injectedJavaScriptObject={JSON.stringify(injectedJavaScriptObject)}
         allowsAirPlayForMediaPlayback={allowsAirPlayForMediaPlayback}
         allowsInlineMediaPlayback={allowsInlineMediaPlayback}
         allowsPictureInPictureMediaPlayback={allowsPictureInPictureMediaPlayback}
         incognito={incognito}
         mediaPlaybackRequiresUserAction={mediaPlaybackRequiresUserAction}
         ref={webViewRef}
-        // @ts-expect-error old arch only
-        source={sourceResolved}
         style={webViewStyles}
         {...nativeConfig?.props}
       />
