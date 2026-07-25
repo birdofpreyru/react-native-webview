@@ -42,7 +42,7 @@ const HTML = `<!DOCTYPE html>\n
 </html>`;
 
 export default function Messaging() {
-  const webView = useRef<WebView | null>(null);
+  const webView = useRef<WebViewRef | null>(null);
 
   return (
     <View style={{ height: 120 }}>

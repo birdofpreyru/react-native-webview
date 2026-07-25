@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import WebView from '@dr.pogodin/react-native-webview';
+import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
 const HTML = `
 <!DOCTYPE html>\n
@@ -63,7 +63,7 @@ type CustomMenuSelectionEvent = {
 
 export default function CustomMenu() {
   const [selectionInfo, setSelectionInfo] = useState<CustomMenuSelection | null>(null);
-  const webviewRef = useRef<WebView | null>(null);
+  const webviewRef = useRef<WebViewRef | null>(null);
 
   return (
     <View>
@@ -84,7 +84,6 @@ export default function CustomMenu() {
             },
           ]}
           onCustomMenuSelection={(webViewEvent: CustomMenuSelectionEvent) => {
-            const { label, key, selectedText } = webViewEvent.nativeEvent;
             setSelectionInfo(webViewEvent.nativeEvent);
             // clearing the selection by sending a message. This would need a script on the source page to listen to the message.
             (webviewRef.current as any).postMessage(

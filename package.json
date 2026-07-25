@@ -50,6 +50,9 @@
     "add:windows": "bun add -d --ignore-scripts react-native-windows@0.83.2 @react-native-windows/find-dotnet-tools@0.84.0"
   },
   "dependencies": {
+    "@eslint/compat": "^2.1.0",
+    "@eslint/eslintrc": "^3.3.6",
+    "@eslint/js": "^10.0.1",
     "escape-string-regexp": "^5.0.0",
     "invariant": "2.2.4"
   },
@@ -68,16 +71,16 @@
     "@types/jest": "^30.0.0",
     "@types/react": "19.2.17",
     "@types/selenium-webdriver": "4.35.6",
-    "@typescript/native-preview": "^7.0.0-dev.20260620.1",
-    "appium": "1.17.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
+    "appium": "3.6.0",
+    "eslint": "^9.39.5",
     "jest": "^30.4.2",
-    "eslint": "8.57.1",
     "react": "19.2.3",
     "react-native": "0.86.0",
     "react-native-builder-bob": "^0.42.1",
-    "react-native-test-app": "5.4.1",
+    "react-native-test-app": "5.4.5",
     "selenium-appium": "1.0.2",
-    "selenium-webdriver": "4.45.0",
+    "selenium-webdriver": "4.46.0",
     "typescript": "5.9.3",
     "winappdriver": "^0.0.7"
   },
@@ -104,5 +107,5 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@4.17.0"
+  "packageManager": "yarn@4.17.1"
 }

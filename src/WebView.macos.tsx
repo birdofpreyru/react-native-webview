@@ -96,6 +96,7 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
       onLoadingError,
       onLoadingFinish,
       onLoadingProgress,
+      onLoadingSubResourceError,
       onContentProcessDidTerminate,
     } = useWebViewLogic({
       onNavigationStateChange,
@@ -197,6 +198,7 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
         onLoadingFinish={onLoadingFinish}
         onLoadingProgress={onLoadingProgress}
         onLoadingStart={onLoadingStart}
+        onLoadingSubResourceError={onLoadingSubResourceError}
         onHttpError={onHttpError}
         onMessage={onMessage}
         onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}

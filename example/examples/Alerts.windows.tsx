@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Button, Text, View } from 'react-native';
 
-import WebView from '@dr.pogodin/react-native-webview';
+import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
 const HTML = `
 <!DOCTYPE html>\n
@@ -41,7 +41,7 @@ const HTML = `
 // in Win32/WinAppSDK composition apps, and a native modal would block the UI
 // thread and be invisible to UI automation.
 export default function Alerts() {
-  const webView = useRef<typeof WebView | null>(null);
+  const webView = useRef<WebViewRef | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
 
   return (

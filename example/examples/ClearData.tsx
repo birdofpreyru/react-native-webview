@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { View, Button } from 'react-native';
 
-import WebView from '@dr.pogodin/react-native-webview';
+import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
 export default function ClearData() {
-  const webView = useRef<typeof WebView | null>(null);
+  const webView = useRef<WebViewRef | null>(null);
 
   const clearCacheAndReload = (includeDiskFiles: boolean) => {
     webView.current?.clearCache(includeDiskFiles);

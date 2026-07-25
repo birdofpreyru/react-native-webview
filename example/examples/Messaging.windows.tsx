@@ -42,7 +42,7 @@ const HTML = `<!DOCTYPE html>\n
 </html>`;
 
 export default function Messaging() {
-  const webView = useRef<WebView | null>(null);
+  const webView = useRef<WebViewRef | null>(null);
   // Displayed inline because the RNW alert module is not supported in
   // Win32/WinAppSDK composition apps.
   const [lastMessage, setLastMessage] = useState('');

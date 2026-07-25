@@ -122,6 +122,7 @@ const WebViewComponent = forwardRef<unknown, IOSWebViewProps>(
       onLoadingError,
       onLoadingFinish,
       onLoadingProgress,
+      onLoadingSubResourceError,
       onOpenWindow,
       onContentProcessDidTerminate,
     } = useWebViewLogic({
@@ -230,6 +231,7 @@ const WebViewComponent = forwardRef<unknown, IOSWebViewProps>(
         onLoadingError={onLoadingError}
         onLoadingFinish={onLoadingFinish}
         onLoadingProgress={onLoadingProgress}
+        onLoadingSubResourceError={onLoadingSubResourceError}
         onFileDownload={onFileDownload}
         onLoadingStart={onLoadingStart}
         onHttpError={onHttpError}
