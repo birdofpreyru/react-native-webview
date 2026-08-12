@@ -173,6 +173,8 @@ const WebViewComponent: FunctionComponent<AndroidWebViewProps> = ({
   useEffect(() => {
     const onShouldStartLoadWithRequestSubscription = directEventEmitter.addListener(
       'onShouldStartLoadWithRequest',
+
+      // @ts-expect-error This bad typing was always here, let's keep it for now
       (
         event: ShouldStartLoadRequestEvent & {
           messagingModuleName?: string;
@@ -188,6 +190,8 @@ const WebViewComponent: FunctionComponent<AndroidWebViewProps> = ({
 
     const onMessageSubscription = directEventEmitter.addListener(
       'onMessage',
+
+      // @ts-expect-error This bad typing was always here, let's keep it for now
       (event: WebViewMessageEvent & { messagingModuleName?: string }) => {
         if (event.messagingModuleName === messagingModuleName) {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -6,12 +6,12 @@ import {
 } from 'react';
 
 import type {
+  HostInstance,
   NativeSyntheticEvent,
   ViewProps,
   StyleProp,
   ViewStyle,
-  NativeMethods,
-  UIManagerStatic,
+  UIManager,
   NativeScrollEvent,
 } from 'react-native';
 
@@ -30,7 +30,7 @@ type WebViewCommands =
 
 type AndroidWebViewCommands = 'clearHistory' | 'clearFormData';
 
-interface RNCWebViewUIManager<Commands extends string> extends UIManagerStatic {
+interface RNCWebViewUIManager<Commands extends string> extends UIManager {
   getViewManagerConfig: (name: string) => {
     Commands: { [key in Commands]: number };
   };
@@ -65,12 +65,12 @@ export type State = NormalState | ErrorState;
 type Constructor<T> = new (...args: any[]) => T;
 
 export declare class NativeWebViewMacOSComponent extends Component<MacOSNativeWebViewProps> {}
-declare const NativeWebViewMacOSBase: Constructor<NativeMethods> &
+declare const NativeWebViewMacOSBase: Constructor<HostInstance> &
   typeof NativeWebViewMacOSComponent;
 export class NativeWebViewMacOS extends NativeWebViewMacOSBase {}
 
 export declare class NativeWebViewWindowsComponent extends Component<WindowsNativeWebViewProps> {}
-declare const NativeWebViewWindowsBase: Constructor<NativeMethods> &
+declare const NativeWebViewWindowsBase: Constructor<HostInstance> &
   typeof NativeWebViewWindowsComponent;
 export class NativeWebViewWindows extends NativeWebViewWindowsBase {}
 

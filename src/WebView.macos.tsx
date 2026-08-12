@@ -16,6 +16,7 @@ import invariant from 'invariant';
 
 import RNCWebView, {
   type NativeProps,
+  type NewSource,
   Commands,
 } from './RNCWebViewNativeComponent';
 
@@ -160,7 +161,7 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
 
     // oxlint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
     const sourceResolved = resolveAssetSource(source as ImageSourcePropType);
-    const newSource =
+    const newSource: NewSource | undefined =
       typeof sourceResolved === 'object'
         ? Object.entries(sourceResolved as WebViewSourceUri).reduce(
             (prev, [currKey, currValue]) => {
@@ -178,7 +179,7 @@ const WebViewComponent = forwardRef<unknown, MacOSWebViewProps>(
               };
             },
             {},
-          )
+          ) as NewSource
         : sourceResolved;
 
     const webView = (

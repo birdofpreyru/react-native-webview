@@ -138,6 +138,16 @@ type WebViewDownloadEvent = Readonly<{
   downloadUrl: string;
 }>;
 
+export type NewSource = Readonly<{
+  uri?: string;
+  method?: string;
+  body?: string;
+
+  headers?: ReadonlyArray<Readonly<{ name: string; value: string }>>;
+  html?: string;
+  baseUrl?: string;
+}>;
+
 // type MenuItem = Readonly<{label: string, key: string}>;
 
 export interface NativeProps extends ViewProps {
@@ -283,15 +293,7 @@ export interface NativeProps extends ViewProps {
   showsHorizontalScrollIndicator?: CodegenTypes.WithDefault<boolean, true>;
   showsVerticalScrollIndicator?: CodegenTypes.WithDefault<boolean, true>;
   indicatorStyle?: CodegenTypes.WithDefault<'default' | 'black' | 'white', 'default'>;
-  newSource: Readonly<{
-    uri?: string;
-    method?: string;
-    body?: string;
-
-    headers?: ReadonlyArray<Readonly<{ name: string; value: string }>>;
-    html?: string;
-    baseUrl?: string;
-  }>;
+  newSource: NewSource | undefined;
   userAgent?: string;
   injectedJavaScriptObject?: string;
   paymentRequestEnabled?: boolean;

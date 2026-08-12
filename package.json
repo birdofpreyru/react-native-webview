@@ -1,6 +1,6 @@
 {
   "name": "@dr.pogodin/react-native-webview",
-  "version": "16.0.0",
+  "version": "16.1.0",
   "description": "React Native WebView component for iOS, Android, macOS, and Windows",
   "main-internal": "src/index.ts",
   "author": "Jamon Holmgren <jamon@infinite.red>",
@@ -62,27 +62,27 @@
     "@babel/core": "^7.29.7",
     "@babel/runtime": "^7.29.7",
     "@callstack/react-native-visionos": "0.79.6",
-    "@react-native/babel-preset": "0.86.0",
-    "@react-native/eslint-config": "0.86.0",
-    "@react-native/jest-preset": "0.86.0",
-    "@react-native/metro-config": "0.86.0",
-    "@react-native/typescript-config": "0.86.0",
+    "@react-native/babel-preset": "0.87.0",
+    "@react-native/eslint-config": "0.87.0",
+    "@react-native/jest-preset": "0.87.0",
+    "@react-native/metro-config": "0.87.0",
+    "@react-native/typescript-config": "0.87.0",
     "@rnx-kit/metro-config": "2.2.4",
     "@types/invariant": "^2.2.37",
     "@types/jest": "^30.0.0",
-    "@types/react": "19.2.17",
+    "@types/react": "19.2.18",
     "@types/selenium-webdriver": "4.35.6",
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "appium": "3.6.0",
     "eslint": "^9.39.5",
     "jest": "^30.4.2",
     "react": "19.2.3",
-    "react-native": "0.86.0",
-    "react-native-builder-bob": "^0.42.1",
-    "react-native-test-app": "5.4.5",
+    "react-native": "0.87.0",
+    "react-native-builder-bob": "^0.43.0",
+    "react-native-test-app": "5.4.8",
     "selenium-appium": "1.0.2",
-    "selenium-webdriver": "4.46.0",
-    "typescript": "5.9.3",
+    "selenium-webdriver": "4.47.0",
+    "typescript": "6.0.3",
     "winappdriver": "^0.0.7"
   },
   "peerDependencies": {
@@ -108,5 +108,5 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@4.17.1"
+  "packageManager": "yarn@4.18.0"
 }
