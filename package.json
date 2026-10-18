@@ -1,6 +1,6 @@
 {
   "name": "@dr.pogodin/react-native-webview",
-  "version": "16.1.0",
+  "version": "16.1.1",
   "description": "React Native WebView component for iOS, Android, macOS, and Windows",
   "main-internal": "src/index.ts",
   "author": "Jamon Holmgren <jamon@infinite.red>",
