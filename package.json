@@ -75,6 +75,7 @@
     "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "appium": "3.8.0",
     "eslint": "^9.39.5",
+    "eslint-plugin-ft-flow": "^3.0.11",
     "jest": "^30.5.2",
     "react": "19.3.0",
     "react-native": "0.88.0",

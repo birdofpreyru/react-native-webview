@@ -2860,6 +2860,7 @@ __metadata:
     appium: "npm:3.8.0"
     escape-string-regexp: "npm:^5.0.0"
     eslint: "npm:^9.39.5"
+    eslint-plugin-ft-flow: "npm:^3.0.11"
     invariant: "npm:2.2.4"
     jest: "npm:^30.5.2"
     react: "npm:19.3.0"
@@ -7566,6 +7567,19 @@ __metadata:
     "@babel/eslint-parser": ^7.12.0
     eslint: ^8.1.0
   checksum: 10/ea03496d247b9de915f0c5cee3724d4cbec8c0ab22029e4c06301c524bd8a7cbc20598971bed792304c5b3a17c1a1004a1bf7c7f59b55d3887aa7581e00ad0e1
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-ft-flow@npm:^3.0.11":
+  version: 3.0.11
+  resolution: "eslint-plugin-ft-flow@npm:3.0.11"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    string-natural-compare: "npm:^3.0.1"
+  peerDependencies:
+    eslint: ^8.56.0 || ^9.0.0
+    hermes-eslint: ">=0.15.0"
+  checksum: 10/f516500f10e7659cac7cf42adbf15aa41dbe4ac75cdc5893658b073e0564acedba8ceb33c20de999c546208d3e94f03ef178df4d124cef113e179003070b53c7
   languageName: node
   linkType: hard
 
