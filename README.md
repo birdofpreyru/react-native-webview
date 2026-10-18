@@ -41,6 +41,7 @@ and open PRs after some time).
 </table>
 
 ### [Contributors](https://github.com/birdofpreyru/react-native-webview/graphs/contributors)
+[<img width=36 src="https://avatars.githubusercontent.com/u/11707729?v=4&s=36" />](https://github.com/gabrieldonadel)
 [<img width=36 src="https://avatars.githubusercontent.com/u/29095487?v=4&s=36" />](https://github.com/steffenkleinle)
 [<img width=36 src="https://avatars.githubusercontent.com/u/20144632?v=4&s=36" />](https://github.com/birdofpreyru)
 
