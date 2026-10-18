@@ -1,6 +1,6 @@
 {
   "name": "@dr.pogodin/react-native-webview",
-  "version": "16.1.1",
+  "version": "16.1.2",
   "description": "React Native WebView component for iOS, Android, macOS, and Windows",
   "main-internal": "src/index.ts",
   "author": "Jamon Holmgren <jamon@infinite.red>",
@@ -58,9 +58,9 @@
     "invariant": "2.2.4"
   },
   "devDependencies": {
-    "@babel/cli": "^8.0.6",
-    "@babel/core": "^8.0.7",
-    "@babel/runtime": "^8.0.7",
+    "@babel/cli": "^7.29.7",
+    "@babel/core": "^7.29.7",
+    "@babel/runtime": "^7.29.7",
     "@callstack/react-native-visionos": "0.79.6",
     "@react-native/babel-preset": "0.88.0",
     "@react-native/eslint-config": "0.88.0",
