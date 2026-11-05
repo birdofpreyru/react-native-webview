@@ -1685,19 +1685,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dr.pogodin/react-native-webview@file:../react-native-webview::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
-  version: 16.2.0-alpha.1
-  resolution: "@dr.pogodin/react-native-webview@file:../react-native-webview#../react-native-webview::hash=4e8108&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
-  dependencies:
-    escape-string-regexp: "npm:^5.0.0"
-    invariant: "npm:2.2.4"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/35eb31484c75dd1255895f76db629e43eaf546f5219616ff1bc10e55b4380ab56ec6ea9a7c0508a44e3987ac787d235505e6b99ef225bc5da9f6e3ba5ebad912
-  languageName: node
-  linkType: hard
-
 "@dr.pogodin/react-native-webview@workspace:packages/react-native-webview":
   version: 0.0.0-use.local
   resolution: "@dr.pogodin/react-native-webview@workspace:packages/react-native-webview"
@@ -5660,31 +5647,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-mobile@workspace:packages/example-mobile"
   dependencies:
-    "@dr.pogodin/react-native-webview": ../react-native-webview
     "@react-native-community/cli": "npm:20.2.0"
     "@react-native-community/cli-platform-android": "npm:20.2.0"
     "@react-native-community/cli-platform-ios": "npm:20.2.0"
     "@react-native/babel-preset": "npm:0.88.1"
     "@react-native/metro-config": "npm:0.88.1"
     "@rnx-kit/metro-config": "npm:2.2.6"
-    example-shared: ../example-shared
     react: "npm:19.3.1"
     react-native: "npm:0.88.1"
     react-native-safe-area-context: "npm:^5.11.0"
     react-native-test-app: "npm:5.4.15"
   languageName: unknown
   linkType: soft
-
-"example-shared@file:../example-shared::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
-  version: 0.0.0
-  resolution: "example-shared@file:../example-shared#../example-shared::hash=a63ea3&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
-  peerDependencies:
-    "@dr.pogodin/react-native-webview": "*"
-    react: "*"
-    react-native: "*"
-  checksum: 10/f223e00836cc96b3d72d779b018c9420f39135d63dfef27647b6ad175c57c1efcc629d59741ba694217f3d89509d54606fa1b1105b62bfad490b6701e976fcd9
-  languageName: node
-  linkType: hard
 
 "example-shared@workspace:packages/example-shared":
   version: 0.0.0-use.local
