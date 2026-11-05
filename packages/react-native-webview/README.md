@@ -62,7 +62,7 @@ and open PRs after some time).
   / [Upstream PR #3318](https://github.com/react-native-webview/react-native-webview/pull/3318) &mdash; **Android, iOS, macOS:** Support of `window.print()` function.
 
 - Scaffolding of [Example App in the repo](https://github.com/birdofpreyru/react-native-webview/tree/master/example)
-  is reset to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
+  is altered to be closer to that used by [creact-react-native-library](https://www.npmjs.com/package/create-react-native-library).
 
 - Sticks to the same development tooling used by React Native core, and most of the ecosystem: NodeJS, Yaml, Jest, _etc._
 
@@ -108,7 +108,7 @@ Considering that we have limited time, issues will mostly serve as a discussion 
 
 This project is compatible with **iOS**, **Android**, **Windows** and **macOS**.
 
-This project only supports **the new architecture** (fabric); the legacy architecture (paper) is no longer supported. This requires **React Native 0.76 or newer** (with the new architecture enabled) and **iOS 15.1 or newer**; on macOS, react-native-macos 0.76 or newer.
+This project only supports **the new architecture** (fabric); the legacy architecture (paper) is no longer supported. This requires **React Native 0.80 or newer** (with the new architecture enabled) and **iOS 15.1 or newer**; on macOS, react-native-macos 0.81 or newer.
 
 This project is compatible with [expo](https://docs.expo.dev/versions/latest/sdk/webview/).
 

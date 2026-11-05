@@ -1,6 +1,6 @@
 {
   "name": "@dr.pogodin/react-native-webview",
-  "version": "16.2.0-alpha.1",
+  "version": "17.1.0-alpha.1",
   "description": "React Native WebView component for iOS, Android, macOS, and Windows",
   "homepage": "https://github.com/birdofpreyru/react-native-webview#readme",
   "license": "MIT",

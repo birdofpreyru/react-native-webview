@@ -267,20 +267,19 @@ export interface NativeProps extends ViewProps {
   }>;
   cacheEnabled?: CodegenTypes.WithDefault<boolean, true>;
   incognito?: boolean;
+  profile?: string;
   injectedJavaScript?: string;
   injectedJavaScriptBeforeContentLoaded?: string;
   injectedJavaScriptForMainFrameOnly?: CodegenTypes.WithDefault<boolean, true>;
-  injectedJavaScriptBeforeContentLoadedForMainFrameOnly?: CodegenTypes.WithDefault<
-    boolean,
-    true
-  >;
+  injectedJavaScriptBeforeContentLoadedForMainFrameOnly?:
+    CodegenTypes.WithDefault<boolean, true>;
   javaScriptCanOpenWindowsAutomatically?: boolean;
   javaScriptEnabled?: CodegenTypes.WithDefault<boolean, true>;
   webviewDebuggingEnabled?: boolean;
   mediaPlaybackRequiresUserAction?: CodegenTypes.WithDefault<boolean, true>;
   messagingEnabled: boolean;
   onLoadingError: CodegenTypes.DirectEventHandler<WebViewErrorEvent>;
-  onLoadingSubResourceError: CodegenTypes.DirectEventHandler<WebViewErrorEvent>;
+  onLoadingSubResourceError?: CodegenTypes.DirectEventHandler<WebViewErrorEvent>;
   onLoadingFinish: CodegenTypes.DirectEventHandler<WebViewNavigationEvent>;
   onLoadingProgress: CodegenTypes.DirectEventHandler<WebViewNativeProgressEvent>;
   onLoadingStart: CodegenTypes.DirectEventHandler<WebViewNavigationEvent>;
@@ -293,7 +292,7 @@ export interface NativeProps extends ViewProps {
   showsHorizontalScrollIndicator?: CodegenTypes.WithDefault<boolean, true>;
   showsVerticalScrollIndicator?: CodegenTypes.WithDefault<boolean, true>;
   indicatorStyle?: CodegenTypes.WithDefault<'default' | 'black' | 'white', 'default'>;
-  newSource: NewSource | undefined;
+  newSource: NewSource;
   userAgent?: string;
   injectedJavaScriptObject?: string;
   paymentRequestEnabled?: boolean;

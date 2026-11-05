@@ -29,6 +29,7 @@ import OpenWindow from './examples/OpenWindow';
 import Printing from './examples/Printing';
 import SuppressMenuItems from './examples/Suppress';
 import ClearData from './examples/ClearData';
+import ProfileExample from './examples/Profile';
 import SslError from './examples/SslError';
 import WebViewInsideScrollView from './examples/WebViewInsideScrollView';
 
@@ -190,6 +191,14 @@ const TESTS = {
     description: 'WebView placed inside ScrollView',
     render() {
       return <WebViewInsideScrollView />;
+    },
+  },
+  Profile: {
+    title: 'Profile (Android)',
+    testId: 'profile',
+    description: 'Isolated cookie jars via androidx.webkit Profile',
+    render() {
+      return <ProfileExample />;
     },
   },
 } satisfies Record<string, TestT>;
@@ -376,6 +385,11 @@ const App: FunctionComponent = () => {
           testID="testType_WebViewInsideScrollView"
           title="WebViewInsideScrollView"
           onPress={() => changeTest('WebViewInsideScrollView')}
+        />
+        <Button
+          testID="testType_profile"
+          title="Profile"
+          onPress={() => changeTest('Profile')}
         />
       </View>
 

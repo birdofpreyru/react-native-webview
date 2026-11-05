@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -33,6 +34,7 @@ import com.facebook.common.logging.FLog;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -87,6 +89,75 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     protected boolean hasScrollEvent = false;
     protected boolean nestedScrollEnabled = false;
     protected ProgressChangedFilter progressChangedFilter;
+    // Value of the profile prop at mount, whether or not binding it succeeded.
+    private @Nullable String profile = null;
+    // Cookie jar of the androidx.webkit Profile this WebView is bound to, or null for the default profile.
+    private @Nullable CookieManager profileCookieManager = null;
+    // Set at the end of the first props update (mount). Props that can only be applied on mount,
+    // such as the profile, are ignored after that.
+    private boolean initialPropsApplied = false;
+    // Value of the incognito prop, applied by RNCWebViewManager on mount once the profile is bound.
+    private boolean incognito = false;
+
+    public boolean isIncognito() {
+        return incognito;
+    }
+
+    public void setIncognito(boolean value) {
+        incognito = value;
+    }
+
+    public @Nullable String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(@Nullable String value) {
+        profile = value;
+    }
+
+    public void setProfileCookieManager(@Nullable CookieManager cookieManager) {
+        profileCookieManager = cookieManager;
+    }
+
+    public boolean isInitialPropsApplied() {
+        return initialPropsApplied;
+    }
+
+    public void setInitialPropsApplied(boolean applied) {
+        initialPropsApplied = applied;
+    }
+
+    /**
+     * The cookie jar this WebView actually uses: its bound Profile's when one is set,
+     * otherwise the app-wide default.
+     */
+    public CookieManager getCookieManager() {
+        return profileCookieManager != null ? profileCookieManager : CookieManager.getInstance();
+    }
+
+    /**
+     * Prop values read back by {@link RNCWebViewManager} after the prop setter has run (when the
+     * WebChromeClient is recreated, when the user agent is recomputed, when a download starts, and
+     * at the end of a props update for {@link #pendingSource}). They live on the view, not on the
+     * manager, because a single manager instance serves every WebView in the app.
+     */
+    protected boolean allowsFullscreenVideo = false;
+    protected boolean allowsProtectedMedia = false;
+    protected boolean hasOnOpenWindowEvent = false;
+    protected @Nullable
+    String userAgent;
+    protected @Nullable
+    String userAgentWithApplicationName;
+    protected @Nullable
+    String downloadingMessage;
+    protected @Nullable
+    String lackPermissionToDownloadMessage;
+    /**
+     * Source set by the `newSource` prop. Loaded and cleared in
+     * RNCWebViewManager#onAfterUpdateTransaction, once every prop of the update has been applied.
+     */
+    protected @Nullable
+    ReadableMap pendingSource;
 
     private long lastFocusResetTimestamp = 0;
 
@@ -266,6 +337,7 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
         return this.messagingEnabled;
     }
 
+    @SuppressLint("AddJavascriptInterface")
     protected void createRNCWebViewBridge(RNCWebView webView) {
         if (WebViewFeature.isFeatureSupported(WebViewFeature.WEB_MESSAGE_LISTENER)){
           if (this.bridgeListener == null) {
@@ -293,7 +365,6 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
             addJavascriptInterface(fallbackBridge, JAVASCRIPT_INTERFACE);
           }
         }
-        injectJavascriptObject();
     }
 
     private void injectJavascriptObject() {
@@ -306,16 +377,22 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
       }
     }
 
-    @SuppressLint("AddJavascriptInterface")
     public void setMessagingEnabled(boolean enabled) {
-        if (messagingEnabled == enabled) {
-            return;
-        }
-
         messagingEnabled = enabled;
+    }
 
-        if (enabled) {
+    /**
+     * Applies messagingEnabled and injectedJavaScriptObject. Their setters only store the value:
+     * applying them registers the bridge and runs JavaScript, and Fabric sets props in no
+     * particular order. RNCWebViewManager calls this once every prop of an update has been set.
+     */
+    public void applyMessagingProps() {
+        if (messagingEnabled) {
             createRNCWebViewBridge(this);
+        }
+        if (injectedJavaScriptObjectChanged) {
+            injectedJavaScriptObjectChanged = false;
+            injectJavascriptObject();
         }
     }
 
@@ -324,38 +401,49 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     }
 
     public void callInjectedJavaScript() {
-        if (getSettings().getJavaScriptEnabled() &&
-                injectedJS != null &&
-                !TextUtils.isEmpty(injectedJS)) {
+        boolean hasInjectedJS = !TextUtils.isEmpty(injectedJS);
+        if (getSettings().getJavaScriptEnabled() && hasInjectedJS) {
             evaluateJavascriptWithFallback("(function() {\n" + injectedJS + ";\n})();");
-            injectJavascriptObject(); // re-inject the Javascript object in case it has been overwritten.
         }
+        reinjectJavascriptObject(hasInjectedJS);
     }
 
     public void callInjectedJavaScriptBeforeContentLoaded() {
-        if (getSettings().getJavaScriptEnabled()) {
-          // This is necessary to support window.print() in the loaded web pages.
-          evaluateJavascriptWithFallback(
-            "(function(){window.print=function(){window."
-              + JAVASCRIPT_INTERFACE
-              + ".postMessage(\""
-                + PRINT_MESSAGE
-              + "\");};})();"
-          );
+        boolean hasInjectedJS = !TextUtils.isEmpty(injectedJSBeforeContentLoaded);
+        if (getSettings().getJavaScriptEnabled() && hasInjectedJS) {
+            // This is necessary to support window.print() in the loaded web pages.
+            evaluateJavascriptWithFallback(
+                "(function(){window.print=function(){window."
+                + JAVASCRIPT_INTERFACE
+                + ".postMessage(\""
+                    + PRINT_MESSAGE
+                + "\");};})();"
+            );
 
-          if (injectedJSBeforeContentLoaded != null &&
-            !TextUtils.isEmpty(injectedJSBeforeContentLoaded)) {
             evaluateJavascriptWithFallback("(function() {\n" + injectedJSBeforeContentLoaded + ";\n})();");
-            injectJavascriptObject();  // re-inject the Javascript object in case it has been overwritten.
-          }
+        }
+        reinjectJavascriptObject(hasInjectedJS);
+    }
+
+    /**
+     * Each page load starts with a new window, so the object is injected again on every load
+     * while injectedJavaScriptObject is set, not only when an injected script ran. After an
+     * injected script, it is also re-injected in case the script has overwritten it.
+     */
+    private void reinjectJavascriptObject(boolean afterInjectedJS) {
+        if (afterInjectedJS || injectedJavaScriptObject != null) {
+            injectJavascriptObject();
         }
     }
 
     protected String injectedJavaScriptObject = null;
+    private boolean injectedJavaScriptObjectChanged = false;
 
     public void setInjectedJavaScriptObject(String obj) {
-      this.injectedJavaScriptObject = obj;
-      injectJavascriptObject();
+      if (!TextUtils.equals(this.injectedJavaScriptObject, obj)) {
+        this.injectedJavaScriptObject = obj;
+        this.injectedJavaScriptObjectChanged = true;
+      }
     }
 
     public void onMessage(String message, String sourceUrl) {

@@ -15,7 +15,9 @@ import android.webkit.CookieManager
 import android.webkit.DownloadListener
 import android.webkit.WebSettings
 import android.webkit.WebView
+import androidx.webkit.ProfileStore
 import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewCompat
 import androidx.webkit.WebViewFeature
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
@@ -74,16 +76,8 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
     private val mDelegate: ViewManagerDelegate<RNCWebViewWrapper> =
         RNCWebViewManagerDelegate<RNCWebViewWrapper, RNCWebViewManager>(this)
 
-    private var mWebViewConfig: RNCWebViewConfig = RNCWebViewConfig { webView: WebView? -> }
-    private var mAllowsFullscreenVideo = false
-    private var mAllowsProtectedMedia = false
-    private var mDownloadingMessage: String? = null
-    private var mLackPermissionToDownloadMessage: String? = null
-    private var mHasOnOpenWindowEvent = false
-    private var mPendingSource: ReadableMap? = null
-
-    private var mUserAgent: String? = null
-    private var mUserAgentWithApplicationName: String? = null
+    // This manager is a single instance shared by every WebView: keep per-view prop state on
+    // RNCWebView, not in fields here.
 
     override fun getDelegate(): ViewManagerDelegate<RNCWebViewWrapper> = mDelegate
 
@@ -101,7 +95,6 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
     fun createViewInstance(context: ThemedReactContext, webView: RNCWebView): RNCWebViewWrapper {
         setupWebChromeClient(webView)
         context.addLifecycleEventListener(webView)
-        mWebViewConfig.configWebView(webView)
         val settings = webView.settings
         settings.builtInZoomControls = true
         settings.displayZoomControls = false
@@ -141,7 +134,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
             try {
                 urlObj = URL(url)
                 val baseUrl = urlObj.protocol + "://" + urlObj.host
-                val cookie = CookieManager.getInstance().getCookie(baseUrl)
+                val cookie = webView.cookieManager.getCookie(baseUrl)
                 request.addRequestHeader("Cookie", cookie)
             } catch (e: MalformedURLException) {
                 Log.w(TAG, "Error getting cookie for DownloadManager", e)
@@ -156,12 +149,12 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
             module.setDownloadRequest(request)
             if (module.grantFileDownloaderPermissions(
-                    getDownloadingMessageOrDefault(),
-                    getLackPermissionToDownloadMessageOrDefault()
+                    getDownloadingMessageOrDefault(webView),
+                    getLackPermissionToDownloadMessageOrDefault(webView)
                 )
             ) {
                 module.downloadFile(
-                    getDownloadingMessageOrDefault()
+                    getDownloadingMessageOrDefault(webView)
                 )
             }
         })
@@ -172,7 +165,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
         webView: RNCWebView,
     ) {
         val activity = webView.themedReactContext.currentActivity
-        if (mAllowsFullscreenVideo && activity != null) {
+        if (webView.allowsFullscreenVideo && activity != null) {
             val initialRequestedOrientation = activity.requestedOrientation
             val webChromeClient: RNCWebChromeClient =
                 object : RNCWebChromeClient(webView) {
@@ -236,8 +229,8 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
                         mWebView.themedReactContext.removeLifecycleEventListener(this)
                     }
                 }
-            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia)
-            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent)
+            webChromeClient.setAllowsProtectedMedia(webView.allowsProtectedMedia)
+            webChromeClient.setHasOnOpenWindowEvent(webView.hasOnOpenWindowEvent)
             webView.webChromeClient = webChromeClient
         } else {
             var webChromeClient = webView.webChromeClient as RNCWebChromeClient?
@@ -247,8 +240,8 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
                     return Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)
                 }
             }
-            webChromeClient.setAllowsProtectedMedia(mAllowsProtectedMedia)
-            webChromeClient.setHasOnOpenWindowEvent(mHasOnOpenWindowEvent)
+            webChromeClient.setAllowsProtectedMedia(webView.allowsProtectedMedia)
+            webChromeClient.setHasOnOpenWindowEvent(webView.hasOnOpenWindowEvent)
             webView.webChromeClient = webChromeClient
         }
     }
@@ -256,11 +249,11 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
     private fun setUserAgentString(viewWrapper: RNCWebViewWrapper) {
         val view = viewWrapper.webView
         when {
-            mUserAgent != null -> {
-                view.settings.userAgentString = mUserAgent
+            view.userAgent != null -> {
+                view.settings.userAgentString = view.userAgent
             }
-            mUserAgentWithApplicationName != null -> {
-                view.settings.userAgentString = mUserAgentWithApplicationName
+            view.userAgentWithApplicationName != null -> {
+                view.settings.userAgentString = view.userAgentWithApplicationName
             }
             else -> {
                 view.settings.userAgentString = WebSettings.getDefaultUserAgent(view.context)
@@ -268,12 +261,12 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
         }
     }
 
-    private fun getDownloadingMessageOrDefault(): String? {
-        return mDownloadingMessage ?: DEFAULT_DOWNLOADING_MESSAGE
+    private fun getDownloadingMessageOrDefault(webView: RNCWebView): String? {
+        return webView.downloadingMessage ?: DEFAULT_DOWNLOADING_MESSAGE
     }
 
-    private fun getLackPermissionToDownloadMessageOrDefault(): String? {
-        return mLackPermissionToDownloadMessage
+    private fun getLackPermissionToDownloadMessageOrDefault(webView: RNCWebView): String? {
+        return webView.lackPermissionToDownloadMessage
             ?: DEFAULT_LACK_PERMISSION_TO_DOWNLOAD_MESSAGE
     }
 
@@ -355,7 +348,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "allowsFullscreenVideo")
     override fun setAllowsFullscreenVideo(view: RNCWebViewWrapper, value: Boolean) {
-        mAllowsFullscreenVideo = value
+        view.webView.allowsFullscreenVideo = value
         setupWebChromeClient(view.webView)
     }
 
@@ -363,8 +356,8 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
     override fun setAllowsProtectedMedia(view: RNCWebViewWrapper, value: Boolean) {
         // This variable is used to keep consistency
         // in case a new WebChromeClient is created
-        // (eg. when mAllowsFullScreenVideo changes)
-        mAllowsProtectedMedia = value
+        // (eg. when allowsFullscreenVideo changes)
+        view.webView.allowsProtectedMedia = value
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val client = view.webView.webChromeClient
             if (client != null && client is RNCWebChromeClient) {
@@ -388,10 +381,10 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
         when {
             value != null -> {
                 val defaultUserAgent = WebSettings.getDefaultUserAgent(view.webView.context)
-                mUserAgentWithApplicationName = "$defaultUserAgent $value"
+                view.webView.userAgentWithApplicationName = "$defaultUserAgent $value"
             }
             else -> {
-                mUserAgentWithApplicationName = null
+                view.webView.userAgentWithApplicationName = null
             }
         }
         setUserAgentString(view)
@@ -433,7 +426,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "downloadingMessage")
     override fun setDownloadingMessage(view: RNCWebViewWrapper, value: String?) {
-        mDownloadingMessage = value
+        view.webView.downloadingMessage = value
     }
 
     @ReactProp(name = "forceDarkOn")
@@ -473,15 +466,16 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "incognito")
     override fun setIncognito(view: RNCWebViewWrapper, value: Boolean) {
-        // Don't do anything when incognito is disabled
-        if (!value) {
-            return
-        }
+        // Applied on mount in onAfterUpdateTransaction, after the profile is bound, so that it
+        // clears the profile's cookies rather than the default ones.
+        view.webView.isIncognito = value
+    }
 
-        val webView = view.webView
+    private fun applyIncognito(webView: RNCWebView) {
+        if (webView.isInitialPropsApplied || !webView.isIncognito) return
 
-        // Remove all previous cookies
-        CookieManager.getInstance().removeAllCookies(null)
+        // Remove all previous cookies from this WebView's cookie jar (its profile's, if one is bound).
+        webView.cookieManager.removeAllCookies(null)
 
         // Disable caching
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
@@ -531,12 +525,12 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "lackPermissionToDownloadMessage")
     override fun setLackPermissionToDownloadMessage(view: RNCWebViewWrapper, value: String?) {
-        mLackPermissionToDownloadMessage = value
+        view.webView.lackPermissionToDownloadMessage = value
     }
 
     @ReactProp(name = "hasOnOpenWindowEvent")
     override fun setHasOnOpenWindowEvent(view: RNCWebViewWrapper, value: Boolean) {
-        mHasOnOpenWindowEvent = value
+        view.webView.hasOnOpenWindowEvent = value
         setupWebChromeClient(view.webView)
     }
 
@@ -597,6 +591,44 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
         }
     }
 
+    @ReactProp(name = "profile")
+    override fun setProfile(view: RNCWebViewWrapper, value: String?) {
+        val webView = view.webView
+        val name = value?.takeIf { it.isNotEmpty() }
+
+        // The Profile API only allows binding a WebView before it has loaded anything, so the
+        // profile is fixed once the WebView has mounted. Fabric can re-send the mount props, so
+        // compare against the stored prop: it is kept even when binding failed.
+        if (webView.isInitialPropsApplied) {
+            if (name != webView.profile) {
+                Log.w(TAG, "Ignoring change of WebView profile to '${name ?: "default"}': the profile can only be set when the WebView is first mounted.")
+            }
+            return
+        }
+        webView.profile = name
+    }
+
+    // Binds the profile at the end of the first props update, see onAfterUpdateTransaction.
+    private fun bindProfile(webView: RNCWebView) {
+        if (webView.isInitialPropsApplied) return
+        val name = webView.profile ?: return
+
+        if (!WebViewFeature.isFeatureSupported(WebViewFeature.MULTI_PROFILE)) {
+            Log.w(TAG, "WebView profile '$name' ignored: MULTI_PROFILE not supported on this device.")
+            return
+        }
+
+        // setProfile throws if the WebView has loaded a URL, evaluated JavaScript, or had
+        // getProfile called on it.
+        try {
+            val profile = ProfileStore.getInstance().getOrCreateProfile(name)
+            WebViewCompat.setProfile(webView, name)
+            webView.setProfileCookieManager(profile.cookieManager)
+        } catch (e: IllegalStateException) {
+            Log.e(TAG, "Could not bind WebView to profile '$name', using the default profile instead: ${e.message}")
+        }
+    }
+
     @ReactProp(name = "saveFormDataDisabled")
     override fun setSaveFormDataDisabled(view: RNCWebViewWrapper, value: Boolean) {
         view.webView.settings.saveFormData = !value
@@ -635,7 +667,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "newSource")
     override fun setNewSource(view: RNCWebViewWrapper, value: ReadableMap?) {
-        mPendingSource = value
+        view.webView.pendingSource = value
     }
 
     @ReactProp(name = "textZoom")
@@ -662,7 +694,7 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     @ReactProp(name = "userAgent")
     override fun setUserAgent(view: RNCWebViewWrapper, value: String?) {
-        mUserAgent = value
+        view.webView.userAgent = value
         setUserAgentString(view)
     }
 
@@ -823,10 +855,21 @@ open class RNCWebViewManager : ViewGroupManager<RNCWebViewWrapper>(),
 
     override fun onAfterUpdateTransaction(view: RNCWebViewWrapper) {
         super.onAfterUpdateTransaction(view)
-        mPendingSource?.let { source ->
+        val webView = view.webView
+        // The profile has to be bound before the WebView loads a page or runs JavaScript, so it
+        // comes first. Incognito comes next so that it clears the bound profile's cookies.
+        bindProfile(webView)
+        applyIncognito(webView)
+        // Done here rather than in the prop setters: Fabric sets props in no particular
+        // order, and this needs the final value of javaScriptEnabled. It also has to come
+        // before the new source starts loading.
+        webView.applyMessagingProps()
+        webView.pendingSource?.let { source ->
             loadSource(view, source)
         }
-        mPendingSource = null
+        webView.pendingSource = null
+        // Last: props that can only be applied on mount check this flag.
+        webView.isInitialPropsApplied = true
     }
 
     override fun onDropViewInstance(view: RNCWebViewWrapper) {
