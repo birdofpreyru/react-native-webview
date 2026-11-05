@@ -24,10 +24,15 @@ export default defineConfig([
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2020,
+        requireConfigFile: false,
       },
     },
   },
   {
-    ignores: ['.yarn/', 'node_modules/', 'lib/'],
+    ignores: [
+      '.yarn/',
+      'node_modules/',
+      'packages/react-native-webview/lib/',
+    ],
   },
 ]);

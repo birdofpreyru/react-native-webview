@@ -1,15 +1,12 @@
 {
   "extends": "@react-native/typescript-config",
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"],
+  "include": ["packages/react-native-webview/src/*"],
   "compilerOptions": {
-    // TODO: For now it is disabled, as it leads to a bunch of errors
-    // in the internal RN modules... perhaps because we import stuff we
-    // should not import.
-    // "customConditions": ["react-native-strict-api"],
+    "customConditions": ["react-native", "react-native-legacy-deep-imports"],
     "rootDir": ".",
     "paths": {
-      "@dr.pogodin/react-native-webview": ["./src/index"]
+      "@dr.pogodin/react-native-webview": ["./packages/react-native-webview/src/index"],
+      "@dr.pogodin/react-native-webview/*": ["./packages/react-native-webview/src/*"]
     },
 
     // TODO: We should get rid of it, but then we need to reconfigure
@@ -23,8 +20,6 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noImplicitUseStrict": false,
-    "noStrictGenericChecks": false,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
