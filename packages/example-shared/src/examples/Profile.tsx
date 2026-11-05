@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Button, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import WebView from 'react-native-webview';
+import WebView, { type WebViewRef } from '@dr.pogodin/react-native-webview';
 
 const COOKIES_URL = 'https://httpbin.org/cookies';
 const CLEAR_URL = 'https://httpbin.org/cookies/delete?token=';
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 });
 
 export default function ProfileExample() {
-  const refs = useRef<Record<string, WebView | null>>({});
+  const refs = useRef<Record<string, WebViewRef | null>>({});
 
   if (Platform.OS !== 'android') {
     return (
@@ -117,7 +117,7 @@ export default function ProfileExample() {
             />
           </View>
           <WebView
-            ref={(r: WebView | null) => {
+            ref={(r: WebViewRef | null) => {
               refs.current[config.id] = r;
             }}
             profile={config.profile}

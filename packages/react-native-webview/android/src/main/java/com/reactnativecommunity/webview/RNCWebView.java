@@ -409,9 +409,10 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
     }
 
     public void callInjectedJavaScriptBeforeContentLoaded() {
-        boolean hasInjectedJS = !TextUtils.isEmpty(injectedJSBeforeContentLoaded);
-        if (getSettings().getJavaScriptEnabled() && hasInjectedJS) {
-            // This is necessary to support window.print() in the loaded web pages.
+        boolean isJsEnabled = getSettings().getJavaScriptEnabled();
+
+        // This is necessary to support window.print() in the loaded web pages.
+        if (isJsEnabled) {
             evaluateJavascriptWithFallback(
                 "(function(){window.print=function(){window."
                 + JAVASCRIPT_INTERFACE
@@ -419,7 +420,10 @@ public class RNCWebView extends WebView implements LifecycleEventListener {
                     + PRINT_MESSAGE
                 + "\");};})();"
             );
+        }
 
+        boolean hasInjectedJS = !TextUtils.isEmpty(injectedJSBeforeContentLoaded);
+        if (isJsEnabled && hasInjectedJS) {
             evaluateJavascriptWithFallback("(function() {\n" + injectedJSBeforeContentLoaded + ";\n})();");
         }
         reinjectJavascriptObject(hasInjectedJS);
