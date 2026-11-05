@@ -5,8 +5,11 @@
     "customConditions": ["react-native", "react-native-legacy-deep-imports"],
     "rootDir": ".",
     "paths": {
+      // NOTE: These are necessary to pass TypeScript type checks inside
+      // "packages/example-shared" folder.
       "@dr.pogodin/react-native-webview": ["./packages/react-native-webview/src/index"],
-      "@dr.pogodin/react-native-webview/*": ["./packages/react-native-webview/src/*"]
+      "@dr.pogodin/react-native-webview/*": ["./packages/react-native-webview/src/*"],
+      "react-native-safe-area-context": ["./packages/example-mobile/node_modules/react-native-safe-area-context"]
     },
 
     // TODO: We should get rid of it, but then we need to reconfigure

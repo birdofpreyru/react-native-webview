@@ -10,10 +10,11 @@
     "bundle:ios": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output dist/main.ios.jsbundle --assets-dest dist/assets"
   },
   "dependencies": {
+    "@dr.pogodin/react-native-webview": "../react-native-webview",
     "example-shared": "../example-shared",
     "react": "19.3.1",
     "react-native": "0.88.1",
-    "react-native-webview": "../react-native-webview"
+    "react-native-safe-area-context": "^5.11.0"
   },
   "devDependencies": {
     "@react-native-community/cli": "20.2.0",

@@ -7,7 +7,7 @@ module.exports = function makeExampleMetroConfig(projectRoot, platformResolver) 
   const monorepoRoot = path.resolve(projectRoot, '../..');
   const webview = path.join(monorepoRoot, 'packages/react-native-webview');
   const shared = path.join(monorepoRoot, 'packages/example-shared');
-  const packages = { 'react-native-webview': webview, 'example-shared': shared };
+  const packages = { '@dr.pogodin/react-native-webview': webview, 'example-shared': shared };
   // Apps in the root workspace resolve dependencies from the hoisted root node_modules.
   const { workspaces } = require('../package.json');
   const inRootWorkspace = workspaces.includes(

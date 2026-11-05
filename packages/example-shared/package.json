@@ -7,8 +7,5 @@
     "@dr.pogodin/react-native-webview": "*",
     "react": "*",
     "react-native": "*"
-  },
-  "dependencies": {
-    "react-native-safe-area-context": "^5.11.0"
   }
 }

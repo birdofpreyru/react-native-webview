@@ -15,7 +15,7 @@ jobs:
           key: node-modules-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - run: yarn ci
+      - run: yarn test
       - persist_to_workspace:
           root: .
           paths:
@@ -29,7 +29,8 @@ jobs:
           at: .
       - run: |
           export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
-          npm publish --access public
+          cd packages/react-native-webview
+          npm publish --access public --tag alpha
 
 workflows:
   version: 2

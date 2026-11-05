@@ -1685,6 +1685,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dr.pogodin/react-native-webview@file:../react-native-webview::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
+  version: 16.2.0
+  resolution: "@dr.pogodin/react-native-webview@file:../react-native-webview#../react-native-webview::hash=224164&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
+  dependencies:
+    escape-string-regexp: "npm:^5.0.0"
+    invariant: "npm:2.2.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10/d59bc37cbb585ebc0f83dcca7468335514b3ff7d38821c55676e881597c43ad736a62a69f9b291ffeb9edff62d4121a49db01fe89e73d7c1dadfa69e6a656215
+  languageName: node
+  linkType: hard
+
 "@dr.pogodin/react-native-webview@workspace:packages/react-native-webview":
   version: 0.0.0-use.local
   resolution: "@dr.pogodin/react-native-webview@workspace:packages/react-native-webview"
@@ -5647,6 +5660,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-mobile@workspace:packages/example-mobile"
   dependencies:
+    "@dr.pogodin/react-native-webview": ../react-native-webview
     "@react-native-community/cli": "npm:20.2.0"
     "@react-native-community/cli-platform-android": "npm:20.2.0"
     "@react-native-community/cli-platform-ios": "npm:20.2.0"
@@ -5656,29 +5670,25 @@ __metadata:
     example-shared: ../example-shared
     react: "npm:19.3.1"
     react-native: "npm:0.88.1"
+    react-native-safe-area-context: "npm:^5.11.0"
     react-native-test-app: "npm:5.4.15"
-    react-native-webview: ../react-native-webview
   languageName: unknown
   linkType: soft
 
 "example-shared@file:../example-shared::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
   version: 0.0.0
-  resolution: "example-shared@file:../example-shared#../example-shared::hash=48c9c8&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
-  dependencies:
-    react-native-safe-area-context: "npm:^5.11.0"
+  resolution: "example-shared@file:../example-shared#../example-shared::hash=a63ea3&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
   peerDependencies:
     "@dr.pogodin/react-native-webview": "*"
     react: "*"
     react-native: "*"
-  checksum: 10/ef9ce8ce1f4a169825280841a7466f33ad47fbecb89a083c8ffeb081d5e9407eb91270ce320fa844bca3bb4c977b93ea65df1a9e2a5aa71b68f446899604c58b
+  checksum: 10/f223e00836cc96b3d72d779b018c9420f39135d63dfef27647b6ad175c57c1efcc629d59741ba694217f3d89509d54606fa1b1105b62bfad490b6701e976fcd9
   languageName: node
   linkType: hard
 
 "example-shared@workspace:packages/example-shared":
   version: 0.0.0-use.local
   resolution: "example-shared@workspace:packages/example-shared"
-  dependencies:
-    react-native-safe-area-context: "npm:^5.11.0"
   peerDependencies:
     "@dr.pogodin/react-native-webview": "*"
     react: "*"
@@ -9125,19 +9135,6 @@ __metadata:
     typescript: "npm:6.0.3"
   languageName: unknown
   linkType: soft
-
-"react-native-webview@file:../react-native-webview::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
-  version: 16.2.0
-  resolution: "react-native-webview@file:../react-native-webview#../react-native-webview::hash=655b73&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
-  dependencies:
-    escape-string-regexp: "npm:^5.0.0"
-    invariant: "npm:2.2.4"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/9b57ca4d4fcef92065992f6d21c0f24887a3074172876944ce5b1640597091f43d0b6e07d4a6e9c741f19083d237849a2cf03e4ffbb87bb086c103cc77d669b4
-  languageName: node
-  linkType: hard
 
 "react-native@npm:0.88.1":
   version: 0.88.1

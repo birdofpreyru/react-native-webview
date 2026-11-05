@@ -1,10 +1,10 @@
 {
-  "name": "WebviewExample",
-  "displayName": "WebviewExample",
+  "name": "ReactNativeWebviewExample",
+  "displayName": "ReactNativeWebviewExample",
   "components": [
     {
-      "appKey": "WebviewExample",
-      "displayName": "WebviewExample"
+      "appKey": "ReactNativeWebviewExample",
+      "displayName": "ReactNativeWebviewExample"
     }
   ],
   "resources": {
