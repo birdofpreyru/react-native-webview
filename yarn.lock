@@ -1686,15 +1686,15 @@ __metadata:
   linkType: hard
 
 "@dr.pogodin/react-native-webview@file:../react-native-webview::locator=example-mobile%40workspace%3Apackages%2Fexample-mobile":
-  version: 16.2.0
-  resolution: "@dr.pogodin/react-native-webview@file:../react-native-webview#../react-native-webview::hash=224164&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
+  version: 16.2.0-alpha.1
+  resolution: "@dr.pogodin/react-native-webview@file:../react-native-webview#../react-native-webview::hash=4e8108&locator=example-mobile%40workspace%3Apackages%2Fexample-mobile"
   dependencies:
     escape-string-regexp: "npm:^5.0.0"
     invariant: "npm:2.2.4"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10/d59bc37cbb585ebc0f83dcca7468335514b3ff7d38821c55676e881597c43ad736a62a69f9b291ffeb9edff62d4121a49db01fe89e73d7c1dadfa69e6a656215
+  checksum: 10/35eb31484c75dd1255895f76db629e43eaf546f5219616ff1bc10e55b4380ab56ec6ea9a7c0508a44e3987ac787d235505e6b99ef225bc5da9f6e3ba5ebad912
   languageName: node
   linkType: hard
 
