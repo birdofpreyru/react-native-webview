@@ -14,11 +14,14 @@ jobs:
       - save_cache:
           key: node-modules-{{ checksum "yarn.lock" }}
           paths:
+            - packages/example-mobile/node_modules
+            - packages/react-native-webview/node_modules
             - node_modules
       - run: yarn test
       - persist_to_workspace:
           root: .
           paths:
+            - packages/react-native-webview/node_modules
             - node_modules
 
   release:
